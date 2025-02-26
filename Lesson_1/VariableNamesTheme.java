@@ -4,15 +4,15 @@ public class VariableNamesTheme {
 
         // цифра
         int digit = 5;
-        System.out.println("Цифра = " + digit);
+        System.out.println("цифра = " + digit);
 
         // сумма чисел
-        int numbersSum = 30;
-        System.out.println("сумма чисел = " + numbersSum);
+        int numberSum = 30;
+        System.out.println("сумма чисел = " + numberSum);
 
         // произведение цифр
-        int numbersProduct = 59;
-        System.out.println("произведение цифр = " + numbersProduct);
+        int numberProduct = 59;
+        System.out.println("произведение цифр = " + numberProduct);
 
         // максимальное число
         int maxNumber = 1;
@@ -133,8 +133,8 @@ public class VariableNamesTheme {
         System.out.println("создано? = " + isCreated);
 
         // пустое?
-        boolean isEmpthy = false;
-        System.out.println("пустое? = " + isEmpthy);
+        boolean isEmpty = false;
+        System.out.println("пустое? = " + isEmpty);
 
         // активное?
         boolean active = true;
@@ -152,7 +152,7 @@ public class VariableNamesTheme {
         boolean hasUniqueLines = false;
         System.out.println("имеются уникальные строки? = " + hasUniqueLines);
 
-        System.out.println("\nАббревиатуры");
+        System.out.println("\n3. Аббревиатуры");
 
         // старый universally unique identifier
         String oldUuid = "59a09ca2-0f87-4601-83fb-228947937245";
