@@ -5,18 +5,18 @@ public class VariablesTheme {
     public static void main(String[] args) {
         // Task 1
         System.out.println("\n1. Вывод характеристик компьютера");
-        byte coresCount = 12;
+        byte coreCount = 12;
         short systemType = 64;
-        int ram = 16;
+        int ramCapacity = 16;
         long hddCapacity = 2L;
-        float processorFrequency = 3.30F;
+        float cpuFrequency = 3.30F;
         double screenDiagonal = 15.6;
         char laptopModelSymbol = 'L';
         boolean keyboardBacklight = true;
 
-        System.out.println("Количество ядер " + coresCount);
-        System.out.println("Частота процессора + " + processorFrequency);
-        System.out.println("Оперативная память " + ram);
+        System.out.println("Количество ядер " + coreCount);
+        System.out.println("Частота процессора + " + cpuFrequency);
+        System.out.println("Оперативная память " + ramCapacity);
         System.out.println("Тип системы " + systemType + "-разрядная операционная систама, x" + systemType);
         System.out.println("Ёмкость жесткого диска " + hddCapacity + "TB");
         System.out.println("Диагональ экрана " + screenDiagonal);
@@ -27,11 +27,11 @@ public class VariablesTheme {
         System.out.println("\n2. Расчет стоимости товара со скидкой");
         double penPrice = 105.5;
         double bookPrice = 235.83;
-        double penAndbookSum = penPrice + bookPrice;
-        double discountSum = penAndbookSum * .11;
-        double discountPrice = penAndbookSum - discountSum;
+        double basePrice = penPrice + bookPrice;
+        double discountSum = basePrice * .11;
+        double discountPrice = basePrice - discountSum;
 
-        System.out.format("Стоимость товаров без скидки: %.2f\n", penAndbookSum);
+        System.out.format("Стоимость товаров без скидки: %.2f\n", basePrice);
         System.out.format("Сумму скидки: %.2f\n", discountSum);
         System.out.format("Стоимость товаров со скидкой: %.2f\n", discountPrice);
 
@@ -66,25 +66,25 @@ public class VariablesTheme {
         System.out.println("значение после инкремента на единицу " + ++longMaxValue);
         System.out.println("значение после декремента на единицу " + --longMaxValue);
 
-        System.out.println("первоначальное значение " + charMaxValue);
-        System.out.println("значение после инкремента на единицу " + ++charMaxValue);
-        System.out.println("значение после декремента на единицу " + --charMaxValue);
+        System.out.println("первоначальное значение " + (int) charMaxValue);
+        System.out.println("значение после инкремента на единицу " + (int) ++charMaxValue);
+        System.out.println("значение после декремента на единицу " + (int) --charMaxValue);
 
         // Task 5
         System.out.println("\n5. Перестановка значений переменных");
         int x = 2;
         int y = 5;
+
         System.out.println("Перестановка с помощью третьей переменной");
         System.out.println("Исходные значения переменных: x - " + x + ", y - " + y);
         int tmp = x;
         x = y;
         y = tmp;
         System.out.println("Новые значения переменных: x - " + x + ", y - " + y);
+
         System.out.println("Перестановка с помощью арифметических операций");
         System.out.println("Исходные значения переменных: x - " + x + ", y - " + y);
-        x -= 3;
-        y += 3;
-        System.out.println("Новые значения переменных: x - " + x + ", y - " + y);
+        System.out.printf("Новые значения переменных: x - %d, y - %d%n", (x * y / x), (y * x / y));
 
         System.out.println("Перестановка с помощью побитовой операции");
         System.out.println("Исходные значения переменных: x - " + x + ", y - " + y);
@@ -101,11 +101,11 @@ public class VariablesTheme {
         char atSign = '@';
         char caret = '^';
         char tilde = '~';
-        System.out.println(Integer.valueOf(dollar) + " " + dollar);
-        System.out.println(Integer.valueOf(asterisk) + " " + asterisk);
-        System.out.println(Integer.valueOf(atSign) + " " + atSign);
-        System.out.println(Integer.valueOf(caret) + " " + caret);
-        System.out.println(Integer.valueOf(tilde) + " " + tilde);
+        System.out.println((int) dollar + " " + dollar);
+        System.out.println((int) asterisk + " " + asterisk);
+        System.out.println((int) atSign + " " + atSign);
+        System.out.println((int) caret + " " + caret);
+        System.out.println((int) tilde + " " + tilde);
 
         // Task 7
         System.out.println("\n7. Вывод в консоль ASCII-арт Дюка");
@@ -116,28 +116,26 @@ public class VariablesTheme {
         char underscore = '_';
         System.out.println("    " + backslash + slash);
         System.out.println("   " + backslash + "  " + slash);
-        System.out.println("  " + backslash + underscore + 
-                leftParenthesis + " " + 
+        System.out.println("  " + backslash + underscore + leftParenthesis + " " +
                 rightParenthesis + slash);
         System.out.println(" " + backslash + "      " + slash);
-        System.out.println("" + backslash + underscore + underscore + 
-                underscore + underscore + backslash + 
-                slash + underscore + underscore + slash);
+        System.out.println("" + backslash + underscore + underscore + underscore + underscore +
+                backslash + slash + underscore + underscore + slash);
 
         // Task 8
         System.out.println("\n8. Манипуляции с сотнями, десятками и единицами числа");
         int number = 123;
-        int units = number % 10;
+        int ones = number % 10;
         int tens = number / 10 % 10;
         int hundreds = number / 100;
-        int sum = units + tens + hundreds;
-        int multiply = units * tens * hundreds;
-        System.out.println("Число " + number + "содержит:");
+        int sum = ones + tens + hundreds;
+        int multiplication = ones * tens * hundreds;
+        System.out.println("Число " + number + " содержит:");
         System.out.println("  сотен - " + hundreds);
         System.out.println("  десятков - " + tens);
-        System.out.println("  единиц - " + units);
+        System.out.println("  единиц - " + ones);
         System.out.println("Сумма разрядов = " + sum);
-        System.out.println("Произведение разрядов = " + multiply);
+        System.out.println("Произведение разрядов = " + multiplication);
 
         // Task 9
         System.out.println("\n9. Перевод секунд в часы, минуты и секунды");
@@ -149,13 +147,13 @@ public class VariablesTheme {
         BigDecimal newPenCost = new BigDecimal("105.5");
         BigDecimal newBookCost = new BigDecimal("235.83");
         BigDecimal newDiscountPercent = new BigDecimal(".11");
-        BigDecimal newPenAndbookSum = newPenCost.add(newBookCost);
-        BigDecimal newDiscountSum = newPenAndbookSum.multiply(newDiscountPercent)
+        BigDecimal newBasePrice = newPenCost.add(newBookCost);
+        BigDecimal newDiscountSum = newBasePrice.multiply(newDiscountPercent)
                 .setScale(2, RoundingMode.HALF_UP);
-        BigDecimal newGoodsCostWithDiscount = newPenAndbookSum.subtract(newDiscountSum)
+        BigDecimal newGoodsCostWithDiscount = newBasePrice.subtract(newDiscountSum)
                 .setScale(2, RoundingMode.HALF_UP);
 
-        System.out.println("Стоимость товаров без скидки: " + newPenAndbookSum);
+        System.out.println("Стоимость товаров без скидки: " + newBasePrice);
         System.out.println("\nСумму скидки: " + newDiscountSum);
         System.out.println("\nСтоимость товаров со скидкой: " + newGoodsCostWithDiscount);
     }
