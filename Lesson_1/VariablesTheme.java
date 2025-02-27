@@ -17,10 +17,10 @@ public class VariablesTheme {
         System.out.println("Количество ядер " + coreCount);
         System.out.println("Частота процессора + " + cpuFrequency);
         System.out.println("Оперативная память " + ramCapacity);
-        System.out.println("Тип системы " + systemType + "-разрядная операционная систама, x" + systemType);
+        System.out.println("Тип системы " + systemType + "-разрядная операционная система, x" + systemType);
         System.out.println("Ёмкость жесткого диска " + hddCapacity + "TB");
         System.out.println("Диагональ экрана " + screenDiagonal);
-        System.out.println("Подстветка клавиатуры " + keyboardBacklight);
+        System.out.println("Подсветка клавиатуры " + keyboardBacklight);
         System.out.println("Модель ноутбука Machenike " + laptopModelSymbol + "16 Pro");
 
         // Task 2
@@ -84,9 +84,9 @@ public class VariablesTheme {
 
         System.out.println("Перестановка с помощью арифметических операций");
         System.out.println("Исходные значения переменных: x - " + x + ", y - " + y);
-        x = x + y;
+        x += y;
         y = x - y;
-        x = x - y;
+        x -= y;
         System.out.println("Новые значения переменных: x - " + x + ", y - " + y);
         System.out.println("Перестановка с помощью побитовой операции");
         System.out.println("Исходные значения переменных: x - " + x + ", y - " + y);
