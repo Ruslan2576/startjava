@@ -7,21 +7,20 @@ public class IfElseStatementTheme {
         // Task 1
         System.out.println("1. Перевод псевдокода на язык Java");
         boolean isMaleGander = true;
-        int age = 30;
-        double height = 1.84;
-
         if (!isMaleGander) {
             System.out.println("Женщина");
         } else {
             System.out.println("Мужчина");
         }
 
+        int age = 30;
         if (age > 18) {
             System.out.println("Совершеннолетний");
         } else {
             System.out.println("Несовершеннолетний");
         }
-        
+
+        double height = 1.84;
         if (height < 1.8) {
             System.out.println("Невысокий");
         } else {
@@ -43,26 +42,28 @@ public class IfElseStatementTheme {
         int num2 = 55;
 
         if (num1 > num2) {
-            System.out.println("Число: " + num1 + " больше числа: " + num2);
+            System.out.println(num1 + " больше " + num2);
         } else if (num1 < num2) {
-            System.out.println("Число: " + num2 + " больше числа: " + num1);
+            System.out.println(num2 + " больше числа " + num1);
         } else {
-            System.out.println("Число: " + num1 + " и число: " + num2 + " равны");
+            System.out.println("два числа равны " + num1);
         }
 
         // Task 3
         System.out.println("\n3. Проверка числа");
-        int number = -2;
+        int number = -1;
         
         if (number != 0) {
-            if (number > 0 && number % 2 == 0) {
-                System.out.println(number + " является положительным и чётным");
-            } else if (number < 0 && number % 2 == 0) {
-                System.out.println(number + " является отрицательным и чётным");
-            } else if (number > 0 && number % 2 != 0) {
-                System.out.println(number + " является положительным и нечётным");
+            if (number > 0) {
+                System.out.print(number + " является положительным и ");
             } else {
-                System.out.println(number + " является отрицательным и нечётным");
+                System.out.print(number + " является отрицательным и ");
+            }
+
+            if (number % 2 == 0) {
+                System.out.println("чётным\n");
+            } else {
+                System.out.println("нечётным\n");
             }
         } else {
             System.out.println("Число " + number);
@@ -70,19 +71,19 @@ public class IfElseStatementTheme {
 
         // Task 4
         System.out.println("\n4. Поиск одинаковых цифр в числах");
-        int a = 123;
-        int b = 223;
+        num1 = 123;
+        num2 = 223;
 
-        int hundredsA = a / 100;
-        int tensA = a / 10 % 10;
-        int onesA = a % 10;
+        int hundredsA = num1 / 100;
+        int tensA = num1 / 10 % 10;
+        int onesA = num1 % 10;
 
-        int hundredsB = b / 100;
-        int tensB = b / 10 % 10;
-        int onesB = b % 10;
+        int hundredsB = num2 / 100;
+        int tensB = num2 / 10 % 10;
+        int onesB = num2 % 10;
 
         if (hundredsA == hundredsB || tensA == tensB || onesA == onesB) {
-            System.out.println("Исходные числа: " + a + " и " + b);
+            System.out.println("Исходные числа: " + num1 + " и " + num2);
             if (hundredsA == hundredsB) {
                 System.out.println("Одинаковые сотни в первом числе " + 
                         hundredsA + " и во втором числе " + hundredsB);
@@ -96,7 +97,7 @@ public class IfElseStatementTheme {
                         " и во втором числе " + onesB);
             }
         } else {
-            System.out.println("Подходящих цифр нет.");
+            System.out.println("В числах нет равных разрядов.");
         }
 
         // Task 5
@@ -116,14 +117,12 @@ public class IfElseStatementTheme {
         // Task 6
         System.out.println("\n6. Подсчет начисленных банком %");
         double deposit = 321123.59;
-        double percent = 0;
+        double percent = .10;
 
-        if (deposit < 100_000 && deposit > 0) {
+        if (deposit > 0 && deposit < 100_000) {
             percent = .05;
         } else if (deposit >= 100_000 && deposit <= 300_000) {
             percent = .07;
-        } else {
-            percent = .10;
         }
 
         System.out.printf("Сумма вклада: %.2f\n", deposit);
@@ -132,65 +131,52 @@ public class IfElseStatementTheme {
 
         // Task 7
         System.out.println("\n7.Определение оценки по предметам");
-        double history = 59;
-        double programming = 92;
-        int scoreHistory = 0;
-        int scoreProgramming = 0;
-
-        if (history <= 60) {
-            System.out.println("История - 2");
-            scoreHistory = 2;
-        } else if (history <= 73) {
-            System.out.println("История - 3");
-            scoreHistory = 3;
-        } else if (history <= 91) {
-            System.out.println("История -4");
-            scoreHistory = 4;
-        } else if (history < 100) {
-            System.out.println("История - 5");
-            scoreHistory = 5;
+        double historyPercent = 59;
+        int historyScore = 5;
+        if (historyPercent <= 60) {
+            historyScore = 2;
+        } else if (historyPercent <= 73) {
+            historyScore = 3;
+        } else if (historyPercent <= 91) {
+            historyScore = 4;
         }
 
-        if (programming <= 60) {
-            System.out.println("Программирование - 2");
-            scoreProgramming = 2;
-        } else if (programming <= 73) {
-            System.out.println("Программирование - 3");
-            scoreProgramming = 3;
-        } else if (programming <= 91) {
-            System.out.println("Программирование -4");
-            scoreProgramming = 4;
-        } else if (programming < 100) {
-            System.out.println("Программирование - 5");
-            scoreProgramming = 5;
+        double programmingPercent = 92;
+        int programmingScore = 5;
+        if (programmingPercent <= 60) {
+            programmingScore = 2;
+        } else if (programmingPercent <= 73) {
+            programmingScore = 3;
+        } else if (programmingPercent <= 91) {
+            programmingScore = 4;
         }
 
+        System.out.println("история - " + historyScore);
+        System.out.println("программирование - " + programmingScore);
         System.out.println("средний балл оценок по предметам: " + 
-                ((double) (scoreHistory + scoreProgramming) / 2));
+                ((double) (historyScore + programmingScore) / 2));
         System.out.println("средний % по предметам: " + 
-                ((double) (history + programming) / 2));
+                ((double) (historyPercent + programmingPercent) / 2));
 
         // Task 8
         System.out.println("\n8. Расчет годовой прибыли");
         double monthlyProfit = 13025.233;
         double premisesRent = 5123.018;
         double productionPrice = 9001.729;
-        double yearProfit = monthlyProfit * 12 - (premisesRent + productionPrice) * 12;
-        
+        double yearProfit = 12 * (monthlyProfit - (premisesRent + productionPrice));
+    
         System.out.printf("Прибыль за год: %+.2f руб\n", yearProfit);
 
         // Task 9
         System.out.println("\n9. *Подсчет начисленных банком %");
         BigDecimal secondDeposit = new BigDecimal("321123.59");
-        BigDecimal secondPercent = null;
+        BigDecimal secondPercent = new BigDecimal(".10");
 
-        if (secondDeposit.doubleValue() < 100_000 && secondDeposit.doubleValue() > 0) {
+        if (secondDeposit.doubleValue() > 0 && secondDeposit.doubleValue() < 100_000) {
             secondPercent = new BigDecimal(".05");
         } else if (secondDeposit.doubleValue() >= 100_000 &&
                 secondDeposit.doubleValue() < 300_000) {
             secondPercent = new BigDecimal(".07");
-        } else {
-            secondPercent = new BigDecimal(".1");
         }
 
         System.out.printf("Сумма вклада: %.2f\n", secondDeposit);
@@ -205,9 +191,9 @@ public class IfElseStatementTheme {
         var secondMonthlyProfit = new BigDecimal("13025.233");
         var secondPremisesRent = new BigDecimal("5123.018");
         var secondProductionPrice = new BigDecimal("9001.729");
-        BigDecimal secondYearProfit = secondMonthlyProfit.multiply(new BigDecimal("12"))
-                .subtract(secondPremisesRent.add(secondProductionPrice)
-                .multiply(new BigDecimal("12"))).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal secondYearProfit = BigDecimal.valueOf(12).multiply(secondMonthlyProfit
+                .subtract(secondPremisesRent.add(secondProductionPrice)))
+                .setScale(2, RoundingMode.HALF_UP);
 
         System.out.printf("Прибыль за год: %+.2f руб\n", secondYearProfit);
     }

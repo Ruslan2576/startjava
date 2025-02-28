@@ -88,6 +88,7 @@ public class VariablesTheme {
         y = x - y;
         x -= y;
         System.out.println("Новые значения переменных: x - " + x + ", y - " + y);
+        
         System.out.println("Перестановка с помощью побитовой операции");
         System.out.println("Исходные значения переменных: x - " + x + ", y - " + y);
         x ^= y;
