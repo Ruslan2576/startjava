@@ -61,9 +61,9 @@ public class IfElseStatementTheme {
             }
 
             if (number % 2 == 0) {
-                System.out.println("чётным\n");
+                System.out.println("чётным");
             } else {
-                System.out.println("нечётным\n");
+                System.out.println("нечётным");
             }
         } else {
             System.out.println("Число " + number);
