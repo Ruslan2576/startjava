@@ -12,7 +12,7 @@ public class VariablesTheme {
         float cpuFrequency = 3.30F;
         double screenDiagonal = 15.6;
         char laptopModelSymbol = 'L';
-        boolean keyboardBacklight = true;
+        boolean keyboardBacklight = false;
 
         System.out.println("Количество ядер " + coreCount);
         System.out.println("Частота процессора + " + cpuFrequency);
