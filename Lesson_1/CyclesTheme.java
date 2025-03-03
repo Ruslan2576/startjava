@@ -50,14 +50,14 @@ public class CyclesTheme {
 
         // Task 3
         System.out.println("\n\n3. Вывод реверсивного числа и суммы его цифр");
-        int number = 1234;
+        int initialNumber = 1234;
         int numberSum = 0;
 
-        while (number > 0) {
-            int lastDigit = number % 10;
+        while (initialNumber > 0) {
+            int lastDigit = initialNumber % 10;
             numberSum += lastDigit;
             System.out.print(lastDigit + "");
-            number /= 10;
+            initialNumber /= 10;
         }
         System.out.println("\nСумма цифр: " + numberSum);
 
@@ -80,7 +80,7 @@ public class CyclesTheme {
 
         // Task 5
         System.out.println("\n\n5. Проверка количества двоек числа на четность/нечетность");
-        int initialNumber = 3242592;
+        initialNumber = 3242592;
         int twosCounter = 0;
         int initialNumberCopy = initialNumber;
         while (initialNumberCopy > 0) {
@@ -180,9 +180,9 @@ public class CyclesTheme {
         counter = 0;
         String leftPartNumber = "";
         String rightPartNumber = "";
-        int z = 100000;
+        int divisor = 100000;
         while (initialNumber > 0) {
-            int firstDigit = initialNumber / z;
+            int firstDigit = initialNumber / divisor;
             if (counter < 3) {
                 leftPartNumberSum += firstDigit;
                 leftPartNumber += firstDigit;
@@ -191,8 +191,8 @@ public class CyclesTheme {
                 rightPartNumber += firstDigit;
             }
             counter++;
-            initialNumber %= z;
-            z /= 10;
+            initialNumber %= divisor;
+            divisor /= 10;
         }
 
         if (leftPartNumberSum == rightPartNumberSum) {
