@@ -45,7 +45,7 @@ public class CyclesTheme {
         }
 
         for (--max; max > min; max--) {
-            System.out.print(max);
+            System.out.print(max + " ");
         }
 
         // Task 3
@@ -109,47 +109,43 @@ public class CyclesTheme {
         System.out.println();
 
         // Прямоугольный треугольник
-        int outerLoop = 0;
-        int innerLoop = 0;
-        while (outerLoop < 5) {
-            innerLoop = 5 - outerLoop;
-            while (innerLoop > 0) {
+        int outerCounter = 0;
+        int innerCounter = 0;
+        while (outerCounter < 5) {
+            innerCounter = 5 - outerCounter;
+            while (innerCounter > 0) {
                 System.out.print("#");
-                innerLoop--;
+                innerCounter--;
             }
             System.out.println();
-            outerLoop++;
+            outerCounter++;
         }
         System.out.println();
 
         // Равнобедренный треугольник
-        outerLoop = 1;
         counter = 1;
-        int secondCounter = 2;
-
+        outerCounter = 1;
+        int counter3 = 2;
         do {
-            innerLoop = 0;
+            innerCounter = 0;
             do {
                 System.out.print("#");
-                innerLoop++;
-            } while (innerLoop < counter);
+                innerCounter++;
+            } while (innerCounter < counter);
             counter++;
 
-            if (outerLoop > 2) {
-                counter -= secondCounter;
-                secondCounter++;
+            if (outerCounter > 2) {
+                counter -= counter3;
+                counter3++;
             } 
 
             System.out.println();
-            outerLoop++;
-        } while (outerLoop <= 5);
+            outerCounter++;
+        } while (outerCounter <= 5);
 
         // Task 7
         System.out.println("\n7. Вывод ASCII-символов");
-        String decimal = "DECIMAL";
-        String character = "CHARACTER";
-        String description = "DESCRIPTION";
-        System.out.printf("%s %13s %15s%n", decimal, character, description);
+        System.out.printf("%s %13s %15s%n", "DECIMAL", "CHARACTER", "DESCRIPTION");
     
         for (int i = 33; i < 123; i++) {
             if (i % 2 != 0 && i < 48) {
@@ -161,49 +157,52 @@ public class CyclesTheme {
 
         // Task 8
         System.out.println("\n8. Проверка, является ли число палиндромом");
-        int baseNumber = 1234321;
-        int baseNumberCopy = baseNumber;
-        String reverseNumber = "";
-        while (baseNumberCopy > 0) {
-            reverseNumber += baseNumberCopy % 10;
-            baseNumberCopy /= 10;
+        initialNumber = 1234321;
+        initialNumberCopy = initialNumber;
+        int reverseNumber = 0;
+        while (initialNumberCopy > 0) {
+            int lastDigit = initialNumberCopy % 10;
+            reverseNumber = reverseNumber * 10 + lastDigit;
+            initialNumberCopy /= 10;
         }
 
-        if (baseNumber == Integer.parseInt(reverseNumber)) {
-            System.out.printf("Число %d - палиндром%n", baseNumber);
+        if (initialNumber == reverseNumber) {
+            System.out.printf("Число %d - палиндром%n", initialNumber);
         } else {
-            System.out.printf("Число %d - не палиндром%n", baseNumber);
+            System.out.printf("Число %d - не палиндром%n", initialNumber);
         }
 
         // Task 9
         System.out.println("\n9. Проверка, является ли число счастливым");
-        baseNumber = 123321;
-        int firstPartNumberSum = 0;
-        int secondPartNumberSum = 0;
+        initialNumber = 123321;
+        int leftPartNumberSum = 0;
+        int rightPartNumberSum = 0;
         counter = 0;
         String leftPartNumber = "";
         String rightPartNumber = "";
-        while (baseNumber > 0) {
-            int lastDigit = baseNumber % 10;
+        int z = 100000;
+        while (initialNumber > 0) {
+            int firstDigit = initialNumber / z;
             if (counter < 3) {
-                secondPartNumberSum += lastDigit;
-                rightPartNumber = lastDigit + rightPartNumber;
+                leftPartNumberSum += firstDigit;
+                leftPartNumber += firstDigit;
             } else {
-                firstPartNumberSum += lastDigit;
-                leftPartNumber = lastDigit + leftPartNumber;
+                rightPartNumberSum += firstDigit;
+                rightPartNumber += firstDigit;
             }
             counter++;
-            baseNumber /= 10;
+            initialNumber %= z;
+            z /= 10;
         }
 
-        if (firstPartNumberSum == secondPartNumberSum) {
+        if (leftPartNumberSum == rightPartNumberSum) {
             System.out.println("Число " + leftPartNumber + rightPartNumber + " - счастливое");
         } else {
-            System.out.println("Число " + leftPartNumber + rightPartNumber + " - несчастливое");
+            System.out.println("Число " + leftPartNumber + leftPartNumber + " - несчастливое");
         }
         
-        System.out.printf("Сумма цифр: %s = %d%n", leftPartNumber, firstPartNumberSum);
-        System.out.printf("Сумма цифр: %s = %d%n", rightPartNumber, secondPartNumberSum);
+        System.out.printf("Сумма цифр: %s = %d%n", leftPartNumber, leftPartNumberSum);
+        System.out.printf("Сумма цифр: %s = %d%n", rightPartNumber, rightPartNumberSum);
 
         // Task 10
         System.out.println("\n10. Вывод таблицы умножения Пифагора");
