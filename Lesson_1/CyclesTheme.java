@@ -18,7 +18,7 @@ public class CyclesTheme {
             counter++;
         } while (counter <= stop);
         System.out.printf("В отрезке [%d, %d] сумма четных чисел = %d, а нечетных = %d%n",
-                start,stop, evenNumberSum, oddNumberSum);
+                start, stop, evenNumberSum, oddNumberSum);
 
         // Task 2
         System.out.println("\n2. Вывод чисел между min и max в порядке убывания");
