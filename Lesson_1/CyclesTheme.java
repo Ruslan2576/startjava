@@ -1,4 +1,3 @@
-
 public class CyclesTheme {
     public static void main(String[] args) {
         // Task 1
@@ -56,7 +55,7 @@ public class CyclesTheme {
         while (initialNumber > 0) {
             int lastDigit = initialNumber % 10;
             numberSum += lastDigit;
-            System.out.print(lastDigit + "");
+            System.out.print(lastDigit);
             initialNumber /= 10;
         }
         System.out.println("\nСумма цифр: " + numberSum);
@@ -109,39 +108,39 @@ public class CyclesTheme {
         System.out.println();
 
         // Прямоугольный треугольник
-        int outerCounter = 0;
-        int innerCounter = 0;
-        while (outerCounter < 5) {
-            innerCounter = 5 - outerCounter;
-            while (innerCounter > 0) {
+        int heightCounter = 0;
+        int widthCounter = 0;
+        while (heightCounter < 5) {
+            widthCounter = 5 - heightCounter;
+            while (widthCounter > 0) {
                 System.out.print("#");
-                innerCounter--;
+                widthCounter--;
             }
             System.out.println();
-            outerCounter++;
+            heightCounter++;
         }
         System.out.println();
 
         // Равнобедренный треугольник
-        counter = 1;
-        outerCounter = 1;
-        int counter3 = 2;
+        int mainCounter = 1;
+        heightCounter = 1;
+        int subtractionCounter = 2;
         do {
-            innerCounter = 0;
+            widthCounter = 0;
             do {
                 System.out.print("#");
-                innerCounter++;
-            } while (innerCounter < counter);
-            counter++;
+                widthCounter++;
+            } while (widthCounter < mainCounter);
+            mainCounter++;
 
-            if (outerCounter > 2) {
-                counter -= counter3;
-                counter3++;
+            if (heightCounter > 2) {
+                mainCounter -= subtractionCounter;
+                subtractionCounter++;
             } 
 
             System.out.println();
-            outerCounter++;
-        } while (outerCounter <= 5);
+            heightCounter++;
+        } while (heightCounter <= 5);
 
         // Task 7
         System.out.println("\n7. Вывод ASCII-символов");
@@ -178,17 +177,17 @@ public class CyclesTheme {
         int leftPartNumberSum = 0;
         int rightPartNumberSum = 0;
         counter = 0;
-        String leftPartNumber = "";
-        String rightPartNumber = "";
+        int leftPartNumber = 0;
+        int rightPartNumber = 0;
         int divisor = 100000;
         while (initialNumber > 0) {
             int firstDigit = initialNumber / divisor;
             if (counter < 3) {
                 leftPartNumberSum += firstDigit;
-                leftPartNumber += firstDigit;
+                leftPartNumber = leftPartNumber * 10 + firstDigit;
             } else {
                 rightPartNumberSum += firstDigit;
-                rightPartNumber += firstDigit;
+                rightPartNumber = rightPartNumber * 10 + firstDigit;
             }
             counter++;
             initialNumber %= divisor;
