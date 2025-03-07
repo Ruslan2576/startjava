@@ -177,21 +177,18 @@ public class CyclesTheme {
         int leftPartNumberSum = 0;
         int rightPartNumberSum = 0;
         counter = 0;
-        int leftPartNumber = 0;
-        int rightPartNumber = 0;
-        int divisor = 100000;
+        int leftPartNumber = initialNumber / 1000;
+        int rightPartNumber = initialNumber % 1000;
+        
         while (initialNumber > 0) {
-            int firstDigit = initialNumber / divisor;
+            int lastDigit = initialNumber % 10;
             if (counter < 3) {
-                leftPartNumberSum += firstDigit;
-                leftPartNumber = leftPartNumber * 10 + firstDigit;
+                rightPartNumberSum += lastDigit;
             } else {
-                rightPartNumberSum += firstDigit;
-                rightPartNumber = rightPartNumber * 10 + firstDigit;
+                leftPartNumberSum += lastDigit;
             }
             counter++;
-            initialNumber %= divisor;
-            divisor /= 10;
+            initialNumber /= 10;
         }
 
         if (leftPartNumberSum == rightPartNumberSum) {
