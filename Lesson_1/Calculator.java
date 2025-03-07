@@ -22,11 +22,10 @@ public class Calculator {
         } else if (operator.equals("%")) {
             result = num1 % num2;
         } else if (operator.equals("^")) {
-            int tmp = 1;
+            result = 1;
             for (int i = 0; i < num2; i++) {
-                tmp *= num1;
+                result *= num1;
             }
-            result = tmp;
         }
         System.out.printf("%d %s %d = %d", num1, operator, num2, result);
     }
