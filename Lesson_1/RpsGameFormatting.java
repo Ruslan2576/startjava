@@ -8,7 +8,7 @@ public class RpsGameFormatting {
         String paper = "P";
 
         // Ход первого игрока
-        String name1  = "HEL";
+        String name1 = "HEL";
         Random r = new Random();
         int position1 = r.nextInt(1, 100);
         String sign1 = rock;
@@ -19,10 +19,10 @@ public class RpsGameFormatting {
             sign1 = scissors;
         }
 
-        System.out.println("Ход " + name1 +  ": ");
+        System.out.println("Ход " + name1 + ": ");
 
         for (int i = 0; i < 5; i++) {
-            System.out.print(rock + "\r") ;
+            System.out.print(rock + "\r");
             Thread.sleep(100);
             System.out.print(scissors + "\r");
             Thread.sleep(100);
@@ -45,7 +45,7 @@ public class RpsGameFormatting {
 
         System.out.println("Ход " + name2 + ": ");
 
-        for (int i = 0; i < 5 ; i++) {
+        for (int i = 0; i < 5; i++) {
             System.out.print(rock + "\r");
             Thread.sleep(100);
             System.out.print(scissors + "\r");
