@@ -176,29 +176,25 @@ public class CyclesTheme {
         initialNumber = 123321;
         int leftPartNumberSum = 0;
         int rightPartNumberSum = 0;
-        counter = 0;
         int leftPartNumber = initialNumber / 1000;
         int rightPartNumber = initialNumber % 1000;
         
-        while (initialNumber > 0) {
-            int lastDigit = initialNumber % 10;
-            if (counter < 3) {
-                rightPartNumberSum += lastDigit;
-            } else {
-                leftPartNumberSum += lastDigit;
-            }
-            counter++;
-            initialNumber /= 10;
+        while (leftPartNumber > 0) {
+            rightPartNumberSum += rightPartNumber % 10;
+            leftPartNumberSum += leftPartNumber % 10;
+
+            rightPartNumber /= 10;
+            leftPartNumber /= 10;
         }
 
         if (leftPartNumberSum == rightPartNumberSum) {
-            System.out.println("Число " + leftPartNumber + rightPartNumber + " - счастливое");
+            System.out.println("Число " + initialNumber + " - счастливое");
         } else {
-            System.out.println("Число " + leftPartNumber + leftPartNumber + " - несчастливое");
+            System.out.println("Число " + initialNumber + " - несчастливое");
         }
         
-        System.out.printf("Сумма цифр: %s = %d%n", leftPartNumber, leftPartNumberSum);
-        System.out.printf("Сумма цифр: %s = %d%n", rightPartNumber, rightPartNumberSum);
+        System.out.printf("Сумма цифр: %s = %d%n", initialNumber / 1000, leftPartNumberSum);
+        System.out.printf("Сумма цифр: %s = %d%n", initialNumber % 1000, rightPartNumberSum);
 
         // Task 10
         System.out.println("\n10. Вывод таблицы умножения Пифагора");
