@@ -17,8 +17,8 @@ public class CalculatorTest {
             char sign = 0;
             do {
                 System.out.print("\nВведите знак операции (+, -, *, /, ^, %): ");
-                sign = scan.nextLine().charAt(0);
-            } while (!checkSign(sign));
+                calculator.setSign(scan.nextLine().charAt(0));
+            } while ((sign = calculator.getSign()) == 0);
 
             // Получаем второе число
             int num2 = 0;
@@ -28,7 +28,7 @@ public class CalculatorTest {
             } while (!checkZero(num2, sign));
 
             // Вычисляем выражение и выводим результат
-            int result = calculator.calculate(num1, num2, sign);
+            int result = calculator.calculate(num1, num2);
             printResult(num1, num2, sign, result);
 
             // Продолжаем, или как ?
@@ -46,21 +46,6 @@ public class CalculatorTest {
             return false;
         }
         return true;
-    }
-
-    public static boolean checkSign(char sign) {
-        switch (sign) {
-            case '+':
-            case '-':
-            case '*':
-            case '/':
-            case '%':
-            case '^':
-                return true;
-            default:
-                System.out.printf("Ошибка: операция '%c' не поддерживается%n", sign);
-        }
-        return false;
     }
 
     public static void printResult(int num1, int num2, char sign, int result) {

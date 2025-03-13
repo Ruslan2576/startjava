@@ -1,5 +1,29 @@
+import java.lang.Math;
+
 public class Calculator {
-    public int calculate(int num1, int num2, char sign) {
+
+    private char sign;
+
+    public char getSign() {
+        return sign;
+    }
+
+    public void setSign(char sign) {
+        switch (sign) {
+            case '+':
+            case '-':
+            case '*':
+            case '/':
+            case '%':
+            case '^':
+                this.sign = sign;
+                break;
+            default:
+                System.out.printf("Ошибка: операция '%c' не поддерживается%n", sign);
+        }
+    }
+
+    public int calculate(int num1, int num2) {
         int result = 0;
         if (sign == '+') {
             result = num1 + num2;
