@@ -5,7 +5,7 @@ public class CalculatorTest {
         Calculator calculator = new Calculator();
         Scanner scan = new Scanner(System.in);
         String choice = "";
-
+        
         // Основной цикл
         while (!choice.equals("no")) {
             // Получаем первое число
@@ -13,11 +13,10 @@ public class CalculatorTest {
             int num1 = scan.nextInt();
 
             // Получаем и проверяем знак операции
-            scan.nextLine();
             char sign = 0;
             do {
                 System.out.print("\nВведите знак операции (+, -, *, /, ^, %): ");
-                calculator.setSign(scan.nextLine().charAt(0));
+                calculator.setSign(scan.next().charAt(0));
             } while ((sign = calculator.getSign()) == 0);
 
             // Получаем второе число
@@ -32,10 +31,9 @@ public class CalculatorTest {
             printResult(num1, num2, sign, result);
 
             // Продолжаем, или как ?
-            scan.nextLine();
             do {
                 System.out.println("Хотите продолжить вычисления? [yes/no]:");
-                choice = scan.nextLine();
+                choice = scan.next();
             } while (!choice.equals("yes") && !choice.equals("no"));
         }
     }
