@@ -10,45 +10,54 @@ public class GuessNumber {
         this.secondPlayer = secondPlayer;
     }
 
-    public Player inputNumbers() {
-        Player winner = null;
+    public void play() {
+        Player currPlayer = null;
         Scanner scan = new Scanner(System.in);
-        int computerChoice = (int) (Math.random() * 100) + 1;
-        int counter = 1;
-        while (winner == null) {
+        int secretNumber = (int) (Math.random() * 100) + 1;
+
+        while (currPlayer == null) {
             int number = 0;
+            // Первый игрок вводит число
             do {
-                System.out.print((counter % 2 != 0 ? firstPlayer.getName() : secondPlayer.getName()) +
-                        " угадайте число в отрезке [1, 100]: ");
+                System.out.print(firstPlayer.getName() + " угадайте число в отрезке [1, 100]: ");
                 number = scan.nextInt();
             } while (number < 1 || number > 101);
-
-            if (counter % 2 != 0) {
-                firstPlayer.setNumber(number);
-            } else {
-                secondPlayer.setNumber(number);
+            firstPlayer.setNumber(number);
+            currPlayer = checkNumber(firstPlayer, secretNumber);
+            if (currPlayer != null) {
+                break;
             }
+            System.out.println("неверно");
 
-            winner = checkNumber(computerChoice);
-            if (winner == null) {
-                System.out.println("неверно");
+            // Второй игрок вводит число
+            do {
+                System.out.print(secondPlayer.getName() + " угадайте число в отрезке [1, 100]: ");
+                number = scan.nextInt();
+            } while (number < 1 || number > 101);
+            secondPlayer.setNumber(number);
+            currPlayer = checkNumber(secondPlayer, secretNumber);
+            if (currPlayer != null) {
+                break;
             }
-
+            System.out.println("неверно");
             firstPlayer.setNumber(0);
             secondPlayer.setNumber(0);
-            counter++;
         }
-        return winner;
+        printWinner(currPlayer);
     }
 
-    private Player checkNumber(int computerChoice) {
-        if (computerChoice == firstPlayer.getNumber()) {
-            return firstPlayer;
-        } 
-
-        if (computerChoice == secondPlayer.getNumber()) {
-            return secondPlayer;
+    private Player checkNumber(Player player, int secretNumber) {
+        if (player.getNumber() == secretNumber) {
+            return player;
+        } else if (player.getNumber() < secretNumber) {
+            System.out.println(player.getNumber() + " меньше загаданного числа");
+        } else {
+            System.out.println(player.getNumber() + " больше загаданного числа");
         }
         return null;
+    }
+
+    private static void printWinner(Player winner) {
+        System.out.println(winner.getName() + " Поздравляем вы победили");
     }
 }
