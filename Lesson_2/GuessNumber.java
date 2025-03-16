@@ -14,23 +14,18 @@ public class GuessNumber {
         Player winner = null;
         Scanner scan = new Scanner(System.in);
         int computerChoice = (int) (Math.random() * 100) + 1;
-
         int counter = 1;
         while (winner == null) {
             int number = 0;
+            do {
+                System.out.print((counter % 2 != 0 ? firstPlayer.getName() : secondPlayer.getName()) +
+                        " угадайте число в отрезке [1, 100]: ");
+                number = scan.nextInt();
+            } while (number < 1 || number > 101);
+
             if (counter % 2 != 0) {
-                // Игрок №1 вводит число
-                do {
-                    System.out.print(firstPlayer.getName() + " угадайте число в отрезке [1, 100]: ");
-                    number = scan.nextInt();
-                } while (number < 1 || number > 101);
                 firstPlayer.setNumber(number);
             } else {
-                // Игрок №2 вводит число
-                do {
-                    System.out.print(secondPlayer.getName() + " угадайте число в отрезке [1, 100]: ");
-                    number = scan.nextInt();
-                } while (number < 1 || number > 101);
                 secondPlayer.setNumber(number);
             }
 
