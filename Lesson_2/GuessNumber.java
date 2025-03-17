@@ -40,7 +40,9 @@ public class GuessNumber {
         if (currNumber == secretNumber) {
             System.out.println(player.getName() + " Поздравляем, вы победили.");
             return true;
-        } else if (currNumber < secretNumber) {
+        } 
+
+        if (currNumber < secretNumber) {
             System.out.println(currNumber + " меньше загаданного числа");
         } else {
             System.out.println(currNumber + " больше загаданного числа");
