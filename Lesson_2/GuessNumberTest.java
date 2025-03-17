@@ -10,16 +10,16 @@ public class GuessNumberTest {
         Player firstPlayer = new Player(name);
 
         // Получаем имя и инициализируем второго игрока
-        System.out.print("\nИгрок №2 введите своё имя: ");
+        System.out.print("Игрок №2 введите своё имя: ");
         name = scan.next();
         Player secondPlayer = new Player(name);
 
-        GuessNumber guessNumber = new GuessNumber(firstPlayer, secondPlayer);
+        GuessNumber game = new GuessNumber(firstPlayer, secondPlayer);
         String choice = "";
 
         while (!choice.equals("no")) {
             // Запуск игры
-            guessNumber.play();
+            game.play();
 
             // Продолжим?
             do {
