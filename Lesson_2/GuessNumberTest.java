@@ -18,18 +18,14 @@ public class GuessNumberTest {
         String choice = "";
 
         while (!choice.equals("no")) {
-            // Вывести победителя
-            printWinner(guessNumber.inputNumbers());
+            // Запуск игры
+            guessNumber.play();
 
             // Продолжим?
             do {
-                System.out.println("Хотите продолжить игру? [yes/no]:");
+                System.out.print("Хотите продолжить игру? [yes/no]: ");
                 choice = scan.next();
             } while (!choice.equals("yes") && !choice.equals("no"));
         }
-    }
-
-    public static void printWinner(Player winner) {
-        System.out.println(winner.getName() + " Поздравляем вы победили");
     }
 }

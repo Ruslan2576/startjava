@@ -15,8 +15,11 @@ public class GuessNumber {
         Scanner scan = new Scanner(System.in);
         int secretNumber = (int) (Math.random() * 100) + 1;
 
-        while (currPlayer == null) {
+        do {
             int number = 0;
+            firstPlayer.setNumber(0);
+            secondPlayer.setNumber(0);
+
             // Первый игрок вводит число
             do {
                 System.out.print(firstPlayer.getName() + " угадайте число в отрезке [1, 100]: ");
@@ -27,7 +30,6 @@ public class GuessNumber {
             if (currPlayer != null) {
                 break;
             }
-            System.out.println("неверно");
 
             // Второй игрок вводит число
             do {
@@ -35,14 +37,7 @@ public class GuessNumber {
                 number = scan.nextInt();
             } while (number < 1 || number > 101);
             secondPlayer.setNumber(number);
-            currPlayer = checkNumber(secondPlayer, secretNumber);
-            if (currPlayer != null) {
-                break;
-            }
-            System.out.println("неверно");
-            firstPlayer.setNumber(0);
-            secondPlayer.setNumber(0);
-        }
+        } while ((currPlayer = checkNumber(secondPlayer, secretNumber)) == null);
         printWinner(currPlayer);
     }
 
