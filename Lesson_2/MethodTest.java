@@ -1,33 +1,41 @@
 public class MethodTest {
-    public static void main(String[] args) throws Exception {
-        NotBooleanMethod nbm = new NotBooleanMethod();
+    public static void main(String[] args) {
         System.out.println("1. HЕ BOOLEAN-МЕТОДЫ");
-        nbm.findLongestWord();
-        nbm.selectItemMenu();
-        nbm.calculateAverageValue();
-        nbm.countNumberWord();
-        nbm.printMessageErr();
-        nbm.synchronizeDataCloud();
-        nbm.restoreBackupData();
-        nbm.pauseDownload();
-        nbm.resetSettings();
-        nbm.writeContenFile();
-        nbm.convertTemperature();
-        nbm.enterMathExpression();
-        nbm.identifyWinner();
-        nbm.findBook();
+        showNotBooleanMethod();
 
         System.out.println("\n2. BOOLEAN-МЕТОДЫ");
-        BooleanMethod bm = new BooleanMethod();
+        showBooleanMethod();
+    }
+
+    public static void showNotBooleanMethod() {
+        NotBooleanMethods nbm = new NotBooleanMethods();
+        nbm.findLongestWord();
+        nbm.selectMenuItem();
+        nbm.calculateAverageGrade();
+        nbm.countUniqueWord();
+        nbm.printError();
+        nbm.syncDataCloud();
+        nbm.restoreBackup();
+        nbm.pauseDownload();
+        nbm.resetSettings();
+        nbm.writeFile();
+        nbm.convertTemperature();
+        nbm.enterMathExpression();
+        nbm.determineWinner();
+        nbm.findBookByWriterName();
+    }
+
+    public static void showBooleanMethod() {
+        BooleanMethods bm = new BooleanMethods();
         System.out.println(bm.isRun());
-        System.out.println(bm.isFileDeleted());
-        System.out.println(bm.containUniqueDigit());
+        System.out.println(bm.isDeleted());
+        System.out.println(bm.hasUniqueDigit());
         System.out.println(bm.isLetter());
         System.out.println(bm.hasEqualsDigits());
         System.out.println(bm.hasAttempts());
         System.out.println(bm.isEmptyOrSpaces());
         System.out.println(bm.isEven());
-        System.out.println(bm.isPathValid());
-        System.out.println(bm.isFileExists());
+        System.out.println(bm.isValidPath());
+        System.out.println(bm.isExists());
     }
 }
