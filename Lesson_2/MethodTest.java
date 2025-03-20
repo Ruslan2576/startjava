@@ -1,14 +1,14 @@
 public class MethodTest {
     public static void main(String[] args) {
         System.out.println("1. HЕ BOOLEAN-МЕТОДЫ");
-        showNotBooleanMethod();
+        doNotBooleanMethod();
 
         System.out.println("\n2. BOOLEAN-МЕТОДЫ");
-        showBooleanMethod();
+        doBooleanMethod();
     }
 
-    public static void showNotBooleanMethod() {
-        NotBooleanMethods nbm = new NotBooleanMethods();
+    public static void doNotBooleanMethod() {
+        NonBooleanMethods nbm = new NonBooleanMethods();
         nbm.findLongestWord();
         nbm.selectMenuItem();
         nbm.calculateAverageGrade();
@@ -25,7 +25,7 @@ public class MethodTest {
         nbm.findBookByWriterName();
     }
 
-    public static void showBooleanMethod() {
+    public static void doBooleanMethod() {
         BooleanMethods bm = new BooleanMethods();
         System.out.println(bm.isRun());
         System.out.println(bm.isDeleted());
