@@ -1,3 +1,5 @@
+package com.startjava.lesson_2_3.method.naming;
+
 public class MethodTest {
     public static void main(String[] args) {
         System.out.println("1. HЕ BOOLEAN-МЕТОДЫ");

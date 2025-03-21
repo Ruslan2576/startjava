@@ -1,3 +1,5 @@
+package com.startjava.lesson_2_3.calculator;
+
 import java.util.Scanner;
 
 public class CalculatorTest {
@@ -30,7 +32,7 @@ public class CalculatorTest {
             int result = calculator.calculate(num1, num2);
             printResult(num1, num2, sign, result);
 
-            // Продолжаем, или как ?
+            // Продолжаем, или как?
             do {
                 System.out.println("Хотите продолжить вычисления? [yes/no]:");
                 choice = scan.next();
