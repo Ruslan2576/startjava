@@ -30,14 +30,14 @@ public class RpsGameFormatting {
         console.close();
     }
 
-    private  static String inputName( Scanner console) {
+    private static String inputName(Scanner console) {
         System.out.print("Введите имя игрока: ");
         return console.nextLine();
     }
 
-    private static int generatePosition (String name1, Random r) {
-            System.out.println("Ход " + name1 + ": ");
-            return r.nextInt(1, 100);
+    private static int generatePosition(String name1, Random r) {
+        System.out.println("Ход " + name1 + ": ");
+        return r.nextInt(1, 100);
     }
 
     private static String determineSign(int position) {
@@ -51,14 +51,14 @@ public class RpsGameFormatting {
         return sign;
     }
 
-    private static void showSigns (String sign) throws InterruptedException {
+    private static void showSigns(String sign) throws InterruptedException {
         for (int i = 0; i < 5; i++) {
             System.out.print(ROCK + "\r");
-                Thread.sleep(100);
+            Thread.sleep(100);
             System.out.print(SCISSORS + "\r");
-                Thread.sleep(100);
+            Thread.sleep(100);
             System.out.print(PAPER + "\r");
-                Thread.sleep(100);
+            Thread.sleep(100);
         }
         System.out.println(sign);
     }
@@ -74,7 +74,7 @@ public class RpsGameFormatting {
                 sign1.equals(PAPER) && sign2.equals(ROCK);
 
         if (isEqualName1) {
-                System.out.println("\nПобедил - " + name1);
+            System.out.println("\nПобедил - " + name1);
         } else {
             System.out.println("\nПобедил - " + name2);
         }
