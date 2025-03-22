@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 // Игра Камень-Ножницы-Бумага
 public class RpsGameFormatting {
-
+    
     private static final String ROCK = "R";
     private static final String SCISSORS = "S";
     private static final String PAPER = "P";
@@ -44,8 +44,7 @@ public class RpsGameFormatting {
         String sign = PAPER;
         if (position > 66) {
             sign = ROCK;
-        }
-        else if (position > 33) {
+        } else if (position > 33) {
             sign = SCISSORS;
         }
         return sign;
