@@ -49,17 +49,18 @@ public class Factorial {
             if (original[i] < 0) {
                 System.out.printf("Ошибка: факториал %d! не определен%n", original[i]);
                 continue;
-            } else if (original[i] <= 1) {
-                System.out.println(original[i] + "! = 1");
-                continue;
             }
 
-            StringBuilder expr = new StringBuilder(original[i] + "! = ");
-            for (int j = 1; j <= original[i]; j++) {
-                expr.append(j == original[i] ? j : j + " * ");
+            if (original[i] <= 1) {
+                System.out.println(original[i] + "! = 1");
+            } else {
+                StringBuilder expr = new StringBuilder(original[i] + "! = ");
+                for (int j = 1; j <= original[i]; j++) {
+                    expr.append(j == original[i] ? j : j + " * ");
+                }
+                expr.append(" = ").append(factorials[i]);
+                System.out.println(expr);
             }
-            expr.append(" = ").append(factorials[i]);
-            System.out.println(expr);
         }
         System.out.println();
     }
