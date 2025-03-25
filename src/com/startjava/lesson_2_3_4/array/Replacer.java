@@ -48,7 +48,8 @@ public class Replacer {
         } else {
             System.out.printf("Значение из ячейки по индексу %d: %.3f%n", index, replacedNumbers[index]);
         }
-        int counterZero = index >= replacedNumbers.length || index < -1 ? 0 : replacedNumbers.length - 1 - index;
+        int counterZero = index >= replacedNumbers.length ||
+                index < -1 ? 0 : replacedNumbers.length - 1 - index;
         System.out.printf("Количество обнулённых ячеек: %d%n%n", counterZero);
     }
 }
