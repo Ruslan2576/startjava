@@ -23,7 +23,7 @@ public class ExceedingNumsRemover {
                     index, 0, numbers.length - 1);
             return null;
         }
-        sdfdsfdfsfsfs
+
         float[] modified = new float[numbers.length];
         for (int i = 0; i < numbers.length; i++) {
             if (numbers[i] > numbers[index]) {
