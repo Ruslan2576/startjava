@@ -1,21 +1,15 @@
 package com.startjava.lesson_2_3_4.array;
 
-public class SymbolSorter {
+public class DisplayCharactersTriangle {
     public static void main(String[] args) {
         char[] symbols = sortSymbols('0', '9', true);
-        if (symbols != null) {
-            printTriangle(symbols);
-        }
+        printTriangle(symbols);
 
         symbols = sortSymbols('/', '!', false);
-        if (symbols != null) {
-            printTriangle(symbols);
-        }
+        printTriangle(symbols);
 
         symbols = sortSymbols('A', 'J', false);
-        if (symbols != null) {
-            printTriangle(symbols);
-        }
+        printTriangle(symbols);
     }
 
     private static char[] sortSymbols(char start, char stop, boolean direction) {
@@ -23,19 +17,20 @@ public class SymbolSorter {
             System.out.printf("Ошибка: левая граница (%c) > правой (%c)%n", start, stop);
             return null;
         }
-        int characterRange = stop - start + 1;
-        char[] symbols = new char[characterRange];
-        for (int i = 0; i < characterRange; i++) {
-            if (direction) {
-                symbols[i] = start++;
-            } else {
-                symbols[i] = stop--;
-            }
+
+        int len = stop - start + 1;
+        char[] symbols = new char[len];
+        for (int i = 0; i < len; i++) {
+            symbols[i] = direction ? start++ : stop--;
         }
         return symbols;
     }
 
     private static void printTriangle(char[] symbols) {
+        if (symbols == null) {
+            return;
+        }
+
         StringBuilder triangle = new StringBuilder();
         for (int i = 0; i < symbols.length; i++) {
             triangle.repeat(" ", symbols.length - 1 - i);
