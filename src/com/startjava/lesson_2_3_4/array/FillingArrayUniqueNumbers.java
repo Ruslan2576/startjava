@@ -13,7 +13,7 @@ public class FillingArrayUniqueNumbers {
     }
 
     public static int[] numbersRange(int start, int stop, int count) {
-        int len = (int) (count * .75);
+        int len = (int) (Math.abs(start - stop) * .75);
         if (count < 1) {
             System.out.printf("Ошибка: количество чисел в строке не должно быть < 1 (%d)%n", count);
             return null;
