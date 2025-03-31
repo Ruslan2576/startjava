@@ -29,7 +29,7 @@ public class UniqueNumbersFiller {
             return null;
         }
 
-        if (count > len) {
+        if (count > Math.abs(stop - start)) {
             count = Math.abs(stop - start + 1);
         }
 
