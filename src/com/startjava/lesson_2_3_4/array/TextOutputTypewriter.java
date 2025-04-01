@@ -14,7 +14,7 @@ public class TextOutputTypewriter {
     }
 
     private static String changeString(String someText) {
-        if (someText == null || someText.isEmpty()) {
+        if (someText == null || someText.isBlank()) {
             System.out.println("Ошибка: строка неккоректна.");
             return null;
         }
@@ -53,13 +53,13 @@ public class TextOutputTypewriter {
     }
 
     private static void printArray(String text) throws InterruptedException {
-        if (text == null || text.isEmpty()) {
+        if (text == null || text.isBlank()) {
             return;
         }
 
         for (String s : text.split("")) {
             System.out.print(s);
-            Thread.sleep(150);
+            Thread.sleep(100);
         }
         System.out.println("\n");
     }
