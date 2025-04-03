@@ -7,41 +7,41 @@ public class TextOutputTypewriter {
 
         String str2 = "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
                 "- Robert Martin";
-        printArray(changeString(str1));
-        printArray(changeString(str2));
-        printArray(changeString(null));
-        printArray(changeString(""));
+        printArray(getChangedText(str1));
+        printArray(getChangedText(str2));
+        printArray(getChangedText(null));
+        printArray(getChangedText(""));
     }
 
-    private static String changeString(String someText) {
-        if (someText == null || someText.isBlank()) {
-            System.out.println("Ошибка: строка неккоректна.");
+    private static String getChangedText(String inputText) {
+        if (inputText == null || inputText.isBlank()) {
+            System.out.println("Ошибка: строка некорректна.");
             return null;
         }
 
-        String[] arrayWithoutPunctuationMarks = someText.replaceAll("[!?.,]", "")
+        String[] noPunctuation = inputText.replaceAll("[_!?.,:;'()/\"]", "")
                 .replaceAll(" -", "").split(" ");
 
-        int min = 0;
-        int max = 0;
-        for (int i = 0; i < arrayWithoutPunctuationMarks.length; i++) {
-            if (arrayWithoutPunctuationMarks[i].length() > arrayWithoutPunctuationMarks[max].length()) {
-                max = i;
+        int maxLenWord = 0;
+        int minLenWord = 0;
+        for (int i = 0; i < noPunctuation.length; i++) {
+            if (noPunctuation[i].length() > noPunctuation[maxLenWord].length()) {
+                maxLenWord = i;
             }
 
-            if (arrayWithoutPunctuationMarks[i].length() < arrayWithoutPunctuationMarks[min].length()) {
-                min = i;
-            }
-        }
-
-        String[] changedArray = someText.split(" ");
-        if (min > max) {
-            for (int i = min + 1; i > max; i--) {
-                changedArray[i] = changedArray[i].toUpperCase();
+            if (noPunctuation[i].length() < noPunctuation[minLenWord].length()) {
+                minLenWord = i;
             }
         }
 
-        for (int i = min; i <= max; i++) {
+        if (minLenWord > maxLenWord) {
+            int tmp = maxLenWord;
+            maxLenWord = minLenWord + 1;
+            minLenWord = tmp;
+        }
+
+        String[] changedArray = inputText.split(" ");
+        for (int i = minLenWord; i <= maxLenWord; i++) {
             changedArray[i] = changedArray[i].toUpperCase();
         }
 
