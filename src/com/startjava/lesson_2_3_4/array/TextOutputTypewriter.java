@@ -7,15 +7,20 @@ public class TextOutputTypewriter {
 
         String str2 = "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
                 "- Robert Martin";
-        type(findMinAndMaxWord(str1));
-        type(findMinAndMaxWord(str2));
-        type(findMinAndMaxWord(null));
-        type(findMinAndMaxWord(""));
+        type(upperCaseBetweenMinAndMaxWord(str1));
+        type(upperCaseBetweenMinAndMaxWord(str2));
+        type(upperCaseBetweenMinAndMaxWord(null));
+        type(upperCaseBetweenMinAndMaxWord(""));
     }
 
-    private static String findMinAndMaxWord(String inputText) {
-        if (inputText == null || inputText.isBlank()) {
-            System.out.println("Ошибка: строка некорректна.");
+    private static String upperCaseBetweenMinAndMaxWord(String inputText) {
+        if (inputText == null) {
+            System.out.println("Ошибка: строка равнв null.");
+            return null;
+        }
+
+        if (inputText.isBlank()) {
+            System.out.println("Ошибка: строка пустая");
             return null;
         }
 
