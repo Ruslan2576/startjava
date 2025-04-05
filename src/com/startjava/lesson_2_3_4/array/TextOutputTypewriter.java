@@ -7,15 +7,15 @@ public class TextOutputTypewriter {
 
         String str2 = "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
                 "- Robert Martin";
-        type(upperCaseBetweenMinAndMaxWord(str1));
-        type(upperCaseBetweenMinAndMaxWord(str2));
-        type(upperCaseBetweenMinAndMaxWord(null));
-        type(upperCaseBetweenMinAndMaxWord(""));
+        type(toUpperCaseRange(str1));
+        type(toUpperCaseRange(str2));
+        type(toUpperCaseRange(null));
+        type(toUpperCaseRange(""));
     }
 
-    private static String upperCaseBetweenMinAndMaxWord(String inputText) {
+    private static String toUpperCaseRange(String inputText) {
         if (inputText == null) {
-            System.out.println("Ошибка: строка равнв null.");
+            System.out.println("Ошибка: строка равна null.");
             return null;
         }
 
