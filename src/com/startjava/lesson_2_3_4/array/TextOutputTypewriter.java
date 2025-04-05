@@ -7,20 +7,19 @@ public class TextOutputTypewriter {
 
         String str2 = "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
                 "- Robert Martin";
-        printArray(getChangedText(str1));
-        printArray(getChangedText(str2));
-        printArray(getChangedText(null));
-        printArray(getChangedText(""));
+        type(findMinAndMaxWord(str1));
+        type(findMinAndMaxWord(str2));
+        type(findMinAndMaxWord(null));
+        type(findMinAndMaxWord(""));
     }
 
-    private static String getChangedText(String inputText) {
+    private static String findMinAndMaxWord(String inputText) {
         if (inputText == null || inputText.isBlank()) {
             System.out.println("Ошибка: строка некорректна.");
             return null;
         }
 
-        String[] noPunctuation = inputText.replaceAll("[_!?.,:;'()/\"]", "")
-                .replaceAll(" -", "").split(" ");
+        String[] noPunctuation = inputText.replaceAll("\\s *\\p{P}", "").split(" ");
 
         int maxLenWord = 0;
         int minLenWord = 0;
@@ -52,7 +51,7 @@ public class TextOutputTypewriter {
         return sb.toString();
     }
 
-    private static void printArray(String text) throws InterruptedException {
+    private static void type(String text) throws InterruptedException {
         if (text == null || text.isBlank()) {
             return;
         }
