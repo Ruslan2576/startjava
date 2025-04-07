@@ -6,43 +6,6 @@ public class Arrays {
     private Arrays() {
     }
 
-    public static char[] sortSymbols(char start, char stop, boolean direction) {
-        if (start > stop) {
-            return null;
-        }
-
-        int len = stop - start + 1;
-        char[] symbols = new char[len];
-        for (int i = 0; i < len; i++) {
-            symbols[i] = direction ? start++ : stop--;
-        }
-        return symbols;
-    }
-
-    public static float[] remove(float[] numbers, int index) {
-        if (index < 0 || index >= numbers.length) {
-            return null;
-        }
-
-        float[] modified = new float[numbers.length];
-        for (int i = 0; i < numbers.length; i++) {
-            if (numbers[i] > numbers[index]) {
-                modified[i] = 0;
-                continue;
-            }
-            modified[i] = numbers[i];
-        }
-        return modified;
-    }
-
-    public static float[] createRandomArr() {
-        float[] numbers = new float[15];
-        for (int i = 0; i < 15; i++) {
-            numbers[i] = (float) Math.random();
-        }
-        return numbers;
-    }
-
     public static int[] calc(int... numbers) {
         if (numbers == null) {
             return null;
@@ -61,19 +24,15 @@ public class Arrays {
         return factorials;
     }
 
-    public static int[] reverse(int[] numbers) {
-        if (numbers == null) {
-            return null;
+    public static float[] createRandomArray() {
+        float[] numbers = new float[15];
+        for (int i = 0; i < 15; i++) {
+            numbers[i] = (float) Math.random();
         }
-        int[] reversed = new int[numbers.length];
-        int counter = numbers.length - 1;
-        for (int number : numbers) {
-            reversed[counter--] = number;
-        }
-        return reversed;
+        return numbers;
     }
 
-    public static int[] createRandomArray(int start, int stop, int count) {
+    public static int[] createUniqueNumsArray(int start, int stop, int count) {
         int len = (int) (Math.abs(start - stop) * .75);
         if (count < 1 || len < 0 || start >= stop) {
             return null;
@@ -96,6 +55,47 @@ public class Arrays {
             }
         }
         return numbers;
+    }
+
+    public static float[] remove(float[] numbers, int index) {
+        if (index < 0 || index >= numbers.length) {
+            return null;
+        }
+
+        float[] modified = new float[numbers.length];
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] > numbers[index]) {
+                modified[i] = 0;
+                continue;
+            }
+            modified[i] = numbers[i];
+        }
+        return modified;
+    }
+
+    public static int[] reverse(int[] numbers) {
+        if (numbers == null) {
+            return null;
+        }
+        int[] reversed = new int[numbers.length];
+        int counter = numbers.length - 1;
+        for (int number : numbers) {
+            reversed[counter--] = number;
+        }
+        return reversed;
+    }
+
+    public static char[] sortSymbols(char start, char stop, boolean direction) {
+        if (start > stop) {
+            return null;
+        }
+
+        int len = stop - start + 1;
+        char[] symbols = new char[len];
+        for (int i = 0; i < len; i++) {
+            symbols[i] = direction ? start++ : stop--;
+        }
+        return symbols;
     }
 
     public static String toUpperCaseRange(String inputText) {

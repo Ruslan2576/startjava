@@ -6,47 +6,6 @@ public class Console {
     private Console() {
     }
 
-    public static void printTriangle(char[] symbols, int start, int stop) {
-        if (symbols == null) {
-            System.out.printf("Ошибка: левая граница (%c) > правой (%c)%n", start, stop);
-            return;
-        }
-
-        StringBuilder triangle = new StringBuilder();
-        for (int i = 0; i < symbols.length; i++) {
-            triangle.repeat(" ", symbols.length - 1 - i);
-            triangle.append(symbols[i]).repeat(symbols[i], i * 2).append("\n");
-        }
-        System.out.println(triangle);
-    }
-
-    public static void printResults(float[] original, float[] modified, int index) {
-        if (modified == null) {
-            return;
-        }
-
-        if (index < 0 || index >= original.length) {
-            System.out.printf("Ошибка: индекс %d находится за границами массива от %d до %d.%n",
-                    index, 0, original.length - 1);
-            return;
-        }
-
-        int count = 0;
-        for (float number : original) {
-            if (number > modified[index]) {
-                count++;
-            }
-        }
-
-        System.out.println("Исходный массив");
-        printArray(original);
-
-        System.out.println("Изменённый массив");
-        printArray(modified);
-        System.out.printf("Значение из ячейки по переданному индексу: %.3f%n", modified[index]);
-        System.out.printf("Количество обнулённых ячеек: %d%n%n", count);
-    }
-
     public static void printArray(float[] numbers) {
         for (int i = 0; i < numbers.length; i++) {
             System.out.printf("%.3f ", numbers[i]);
@@ -81,7 +40,34 @@ public class Console {
         System.out.println();
     }
 
-    public static void printResult(int[] original, int[] reversed) {
+    public static void printNumsRemove(float[] original, float[] modified, int index) {
+        if (modified == null) {
+            return;
+        }
+
+        if (index < 0 || index >= original.length) {
+            System.out.printf("Ошибка: индекс %d находится за границами массива от %d до %d.%n",
+                    index, 0, original.length - 1);
+            return;
+        }
+
+        int count = 0;
+        for (float number : original) {
+            if (number > modified[index]) {
+                count++;
+            }
+        }
+
+        System.out.println("Исходный массив");
+        printArray(original);
+
+        System.out.println("Изменённый массив");
+        printArray(modified);
+        System.out.printf("Значение из ячейки по переданному индексу: %.3f%n", modified[index]);
+        System.out.printf("Количество обнулённых ячеек: %d%n%n", count);
+    }
+
+    public static void printReverseArray(int[] original, int[] reversed) {
         System.out.println("   До реверса: " + java.util.Arrays.toString(original));
         System.out.println("После реверса: " + Arrays.toString(reversed));
     }
@@ -118,6 +104,20 @@ public class Console {
             count++;
         }
         System.out.println("\n");
+    }
+
+    public static void printTriangle(char[] symbols, int start, int stop) {
+        if (symbols == null) {
+            System.out.printf("Ошибка: левая граница (%c) > правой (%c)%n", start, stop);
+            return;
+        }
+
+        StringBuilder triangle = new StringBuilder();
+        for (int i = 0; i < symbols.length; i++) {
+            triangle.repeat(" ", symbols.length - 1 - i);
+            triangle.append(symbols[i]).repeat(symbols[i], i * 2).append("\n");
+        }
+        System.out.println(triangle);
     }
 
     public static void type(String text) throws InterruptedException {
