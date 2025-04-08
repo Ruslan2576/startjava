@@ -49,7 +49,7 @@ public class Arrays {
         return numbers;
     }
 
-    public static float[] modifiedIndexes(float[] numbers, int index) {
+    public static float[] exceedingNums(float[] numbers, int index) {
         if (index < 0 || index >= numbers.length) {
             return null;
         }

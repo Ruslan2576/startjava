@@ -11,34 +11,43 @@ public class Main {
     }
 
     private static void reverser() {
-        int[] reversed = Arrays.reverse(new int[]{});
+        int[] numbers = {};
+        int[] reversed = Arrays.reverse(numbers);
         Console.printReverseArray(new int[]{}, reversed);
 
-        reversed = Arrays.reverse(null);
-        Console.printReverseArray(null, reversed);
+        numbers = null;
+        reversed = Arrays.reverse(numbers);
+        Console.printReverseArray(numbers, reversed);
 
-        reversed = Arrays.reverse(new int[]{6, 8, 9, 1});
-        Console.printReverseArray(new int[]{6, 8, 9, 1}, reversed);
+        numbers = new int[]{6, 8, 9, 1};
+        reversed = Arrays.reverse(numbers);
+        Console.printReverseArray(numbers, reversed);
 
-        reversed = Arrays.reverse(new int[]{13, 8, 5, 3, 2, 1, 1});
-        Console.printReverseArray(new int[]{13, 8, 5, 3, 2, 1, 1}, reversed);
+        numbers = new int[]{13, 8, 5, 3, 2, 1, 1};
+        reversed = Arrays.reverse(numbers);
+        Console.printReverseArray(numbers, reversed);
     }
 
     private static void factorial() {
-        int[] factorials = Arrays.calc();
-        Console.printFactorialExpr(new int[]{}, factorials);
+        int[] numbers = {};
+        int[] factorials = Arrays.calc(numbers);
+        Console.printFactorialExpr(numbers, factorials);
 
-        factorials = Arrays.calc(null);
-        Console.printFactorialExpr(null, factorials);
+        numbers = null;
+        factorials = Arrays.calc(numbers);
+        Console.printFactorialExpr(numbers, factorials);
 
-        factorials = Arrays.calc(0, 8, 9);
-        Console.printFactorialExpr(new int[]{0, 8, 9}, factorials);
+        numbers = new int[]{0, 8, 9};
+        factorials = Arrays.calc(numbers);
+        Console.printFactorialExpr(numbers, factorials);
 
-        factorials = Arrays.calc(-3, 1, 7, 13);
-        Console.printFactorialExpr(new int[]{-3, 1, 7, 13}, factorials);
+        numbers = new int[]{-3, 1, 7, 13};
+        factorials = Arrays.calc(numbers);
+        Console.printFactorialExpr(numbers, factorials);
 
-        factorials = Arrays.calc(-22, -0);
-        Console.printFactorialExpr(new int[]{-22, -0}, factorials);
+        numbers = new int[]{-22, -0};
+        factorials = Arrays.calc(numbers);
+        Console.printFactorialExpr(numbers, factorials);
     }
 
     private static void exceedingNumsRemove() {
@@ -47,16 +56,16 @@ public class Main {
             numbers[i] = (float) Math.random();
         }
 
-        float[] modified = Arrays.modifiedIndexes(numbers, -1);
+        float[] modified = Arrays.exceedingNums(numbers, -1);
         Console.printModifiedNums(numbers, modified, -1);
 
-        modified = Arrays.modifiedIndexes(numbers, 15);
+        modified = Arrays.exceedingNums(numbers, 15);
         Console.printModifiedNums(numbers, modified, 15);
 
-        modified = Arrays.modifiedIndexes(numbers, 0);
+        modified = Arrays.exceedingNums(numbers, 0);
         Console.printModifiedNums(numbers, modified, 0);
 
-        modified = Arrays.modifiedIndexes(numbers, 14);
+        modified = Arrays.exceedingNums(numbers, 14);
         Console.printModifiedNums(numbers, modified, 14);
     }
 
