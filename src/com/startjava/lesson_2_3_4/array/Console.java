@@ -16,7 +16,7 @@ public class Console {
         System.out.println();
     }
 
-    public static void printExpr(int[] original, int[] factorials) {
+    public static void printFactorialExpr(int[] original, int[] factorials) {
         if (original == null) {
             return;
         }
@@ -72,7 +72,7 @@ public class Console {
         System.out.println("После реверса: " + Arrays.toString(reversed));
     }
 
-    public static void printSortedNumbers(int[] numbers, int start, int stop, int width) {
+    public static void printNumbers(int[] numbers, int start, int stop, int width) {
         if (numbers == null) {
             return;
         }

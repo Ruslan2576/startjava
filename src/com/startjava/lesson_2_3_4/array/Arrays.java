@@ -24,14 +24,6 @@ public class Arrays {
         return factorials;
     }
 
-    public static float[] createRandomArray() {
-        float[] numbers = new float[15];
-        for (int i = 0; i < 15; i++) {
-            numbers[i] = (float) Math.random();
-        }
-        return numbers;
-    }
-
     public static int[] createUniqueNumsArray(int start, int stop, int count) {
         int len = (int) (Math.abs(start - stop) * .75);
         if (count < 1 || len < 0 || start >= stop) {
@@ -57,7 +49,7 @@ public class Arrays {
         return numbers;
     }
 
-    public static float[] remove(float[] numbers, int index) {
+    public static float[] modifiedIndexes(float[] numbers, int index) {
         if (index < 0 || index >= numbers.length) {
             return null;
         }

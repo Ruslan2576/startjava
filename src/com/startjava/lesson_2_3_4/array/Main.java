@@ -11,58 +11,52 @@ public class Main {
     }
 
     private static void reverser() {
-        int[] numbersReverser = new int[0];
-        int[] reversed = Arrays.reverse(numbersReverser);
-        Console.printReverseArray(numbersReverser, reversed);
+        int[] reversed = Arrays.reverse(new int[]{});
+        Console.printReverseArray(new int[]{}, reversed);
 
-        numbersReverser = null;
-        reversed = Arrays.reverse(numbersReverser);
-        Console.printReverseArray(numbersReverser, reversed);
+        reversed = Arrays.reverse(null);
+        Console.printReverseArray(null, reversed);
 
-        numbersReverser = new int[]{6, 8, 9, 1};
-        reversed = Arrays.reverse(numbersReverser);
-        Console.printReverseArray(numbersReverser, reversed);
+        reversed = Arrays.reverse(new int[]{6, 8, 9, 1});
+        Console.printReverseArray(new int[]{6, 8, 9, 1}, reversed);
 
-        numbersReverser = new int[]{13, 8, 5, 3, 2, 1, 1};
-        reversed = Arrays.reverse(numbersReverser);
-        Console.printReverseArray(numbersReverser, reversed);
+        reversed = Arrays.reverse(new int[]{13, 8, 5, 3, 2, 1, 1});
+        Console.printReverseArray(new int[]{13, 8, 5, 3, 2, 1, 1}, reversed);
     }
 
     private static void factorial() {
-        int[] numbers1 = {};
-        int[] factorials = Arrays.calc(numbers1);
-        Console.printExpr(numbers1, factorials);
+        int[] factorials = Arrays.calc();
+        Console.printFactorialExpr(new int[]{}, factorials);
 
-        int[] numbers2 = null;
-        factorials = Arrays.calc(numbers2);
-        Console.printExpr(numbers2, factorials);
+        factorials = Arrays.calc(null);
+        Console.printFactorialExpr(null, factorials);
 
-        int[] numbers3 = {8, 0, 9};
-        factorials = Arrays.calc(numbers3);
-        Console.printExpr(numbers3, factorials);
+        factorials = Arrays.calc(0, 8, 9);
+        Console.printFactorialExpr(new int[]{0, 8, 9}, factorials);
 
-        int[] numbers4 = {-3, 1, 7, 13};
-        factorials = Arrays.calc(numbers4);
-        Console.printExpr(numbers4, factorials);
+        factorials = Arrays.calc(-3, 1, 7, 13);
+        Console.printFactorialExpr(new int[]{-3, 1, 7, 13}, factorials);
 
-        int[] numbers5 = {-22, -0};
-        factorials = Arrays.calc(numbers5);
-        Console.printExpr(numbers5, factorials);
+        factorials = Arrays.calc(-22, -0);
+        Console.printFactorialExpr(new int[]{-22, -0}, factorials);
     }
 
     private static void exceedingNumsRemove() {
-        float[] numbers = Arrays.createRandomArray();
+        float[] numbers = new float[15];
+        for (int i = 0; i < 15; i++) {
+            numbers[i] = (float) Math.random();
+        }
 
-        float[] modified = Arrays.remove(numbers, -1);
+        float[] modified = Arrays.modifiedIndexes(numbers, -1);
         Console.printNumsRemove(numbers, modified, -1);
 
-        modified = Arrays.remove(numbers, 15);
+        modified = Arrays.modifiedIndexes(numbers, 15);
         Console.printNumsRemove(numbers, modified, 15);
 
-        modified = Arrays.remove(numbers, 0);
+        modified = Arrays.modifiedIndexes(numbers, 0);
         Console.printNumsRemove(numbers, modified, 0);
 
-        modified = Arrays.remove(numbers, 14);
+        modified = Arrays.modifiedIndexes(numbers, 14);
         Console.printNumsRemove(numbers, modified, 14);
     }
 
@@ -78,11 +72,20 @@ public class Main {
     }
 
     private static void uniqueNumbersFiller() {
-        Console.printSortedNumbers(Arrays.createUniqueNumsArray(-30, -10, 23), -30, -10, 23);
-        Console.printSortedNumbers(Arrays.createUniqueNumsArray(10, 50, 10), 10, 50, 10);
-        Console.printSortedNumbers(Arrays.createUniqueNumsArray(-34, -34, 0), -34, -34, 0);
-        Console.printSortedNumbers(Arrays.createUniqueNumsArray(-1, 2, -3), -1, 2, -3);
-        Console.printSortedNumbers(Arrays.createUniqueNumsArray(5, -8, 2), 5, -8, 2);
+        int[] uniqueNumbers = Arrays.createUniqueNumsArray(-30, -10, 23);
+        Console.printNumbers(uniqueNumbers, -30, -10, 23);
+
+        uniqueNumbers = Arrays.createUniqueNumsArray(10, 50, 10);
+        Console.printNumbers(uniqueNumbers, 10, 50, 10);
+
+        uniqueNumbers = Arrays.createUniqueNumsArray(-34, -34, 0);
+        Console.printNumbers(uniqueNumbers, -34, -34, 0);
+
+        uniqueNumbers = Arrays.createUniqueNumsArray(-1, 2, -3);
+        Console.printNumbers(uniqueNumbers, -1, 2, -3);
+
+        uniqueNumbers = Arrays.createUniqueNumsArray(5, -8, 2);
+        Console.printNumbers(uniqueNumbers, 5, -8, 2);
     }
 
     private static void textOutputTypeWriter() throws InterruptedException {
