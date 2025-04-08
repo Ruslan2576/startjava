@@ -40,7 +40,7 @@ public class Console {
         System.out.println();
     }
 
-    public static void printNumsRemove(float[] original, float[] modified, int index) {
+    public static void printModifiedNums(float[] original, float[] modified, int index) {
         if (modified == null) {
             return;
         }

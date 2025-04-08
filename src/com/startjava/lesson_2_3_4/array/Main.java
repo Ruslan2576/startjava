@@ -48,16 +48,16 @@ public class Main {
         }
 
         float[] modified = Arrays.modifiedIndexes(numbers, -1);
-        Console.printNumsRemove(numbers, modified, -1);
+        Console.printModifiedNums(numbers, modified, -1);
 
         modified = Arrays.modifiedIndexes(numbers, 15);
-        Console.printNumsRemove(numbers, modified, 15);
+        Console.printModifiedNums(numbers, modified, 15);
 
         modified = Arrays.modifiedIndexes(numbers, 0);
-        Console.printNumsRemove(numbers, modified, 0);
+        Console.printModifiedNums(numbers, modified, 0);
 
         modified = Arrays.modifiedIndexes(numbers, 14);
-        Console.printNumsRemove(numbers, modified, 14);
+        Console.printModifiedNums(numbers, modified, 14);
     }
 
     private static void displayCharacterTriangle() {
