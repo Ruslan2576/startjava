@@ -8,7 +8,7 @@ public class HangmanGameMain {
         Scanner scan = new Scanner(System.in);
         Random rand = new Random();
         String[] planets = {"Сатурн", "Юпитер", "Венера", "Марс", "Земля"};
-        String[] array = {"_______",
+        String[] gallows = {"_______",
                 "|     |",
                 "|     @",
                 "|    /|\\",
@@ -20,12 +20,12 @@ public class HangmanGameMain {
         while (!choice.equals("no")) {
             String currentWord;
             String word = planets[rand.nextInt(0, planets.length)].toUpperCase();
-            HangmanGame hg = new HangmanGame(word.length(), word.length() + array.length);
+            HangmanGame hg = new HangmanGame(word.length(), word.length() + gallows.length);
             do {
                 // Проверка на корректность ввода и на совпадение.
                 char symbol = hg.inputSymbol();
                 boolean isContain = HangmanGame.check(word, symbol);
-                hg.contain(array, isContain, symbol);
+                hg.contain(gallows, isContain, symbol);
 
                 // Вывод промежуточной инфорамации.
                 currentWord = printCurrentResult(hg.getCorrectSymbols(), word);
@@ -34,7 +34,7 @@ public class HangmanGameMain {
                     System.out.print("Все ошибочные буквы: ");
                     HangmanGame.printIncorrectArray(hg.getIncorrectSymbols());
                 }
-            } while (hg.getCnt() < array.length && (!currentWord.equals(word)));
+            } while (hg.getGallowsLen() < gallows.length && (!currentWord.equals(word)));
 
             if (currentWord.equals(word)) {
                 System.out.println("Поздравляю: вы победили!");

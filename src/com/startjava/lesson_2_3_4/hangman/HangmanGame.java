@@ -10,7 +10,7 @@ public class HangmanGame {
     private int correctSymbolsCounter;
     private int incorrectSymbolsCounter;
     private int allSymbols;
-    private int cnt;
+    private int gallowsLen;
 
     public HangmanGame(int lenCorrectSymbols, int lenIncorrectSymbols) {
         this.correctSymbols = new char[lenCorrectSymbols];
@@ -61,15 +61,15 @@ public class HangmanGame {
             if (attempts < array.length) {
                 attempts++;
             }
-            if (cnt > 0) {
-                cnt--;
+            if (gallowsLen > 0) {
+                gallowsLen--;
             }
         } else {
             if (checkIncorrectSymbols(incorrectSymbols, symbol)) {
                 incorrectSymbols[incorrectSymbolsCounter++] = symbol;
             }
-            cnt++;
-            for (int i = 0; i < cnt; i++) {
+            gallowsLen++;
+            for (int i = 0; i < gallowsLen; i++) {
                 System.out.println(array[i]);
             }
             attempts--;
@@ -106,8 +106,8 @@ public class HangmanGame {
         System.out.println();
     }
 
-    public int getCnt() {
-        return cnt;
+    public int getGallowsLen() {
+        return gallowsLen;
     }
 
     private static boolean checkAllSymbols(char[] allInputSymbols, char symbol) {
