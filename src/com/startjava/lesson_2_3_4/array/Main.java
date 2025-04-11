@@ -13,40 +13,40 @@ public class Main {
     private static void reverser() {
         int[] numbers = {};
         int[] reversed = Arrays.reverse(numbers);
-        Console.printReverseArray(new int[]{}, reversed);
+        Console.printBeforeAfterReversed(new int[]{}, reversed);
 
         numbers = null;
         reversed = Arrays.reverse(numbers);
-        Console.printReverseArray(numbers, reversed);
+        Console.printBeforeAfterReversed(numbers, reversed);
 
         numbers = new int[]{6, 8, 9, 1};
         reversed = Arrays.reverse(numbers);
-        Console.printReverseArray(numbers, reversed);
+        Console.printBeforeAfterReversed(numbers, reversed);
 
         numbers = new int[]{13, 8, 5, 3, 2, 1, 1};
         reversed = Arrays.reverse(numbers);
-        Console.printReverseArray(numbers, reversed);
+        Console.printBeforeAfterReversed(numbers, reversed);
     }
 
     private static void factorial() {
         int[] numbers = {};
-        int[] factorials = Arrays.calc(numbers);
+        int[] factorials = Arrays.calcFactorials(numbers);
         Console.printFactorialExpr(numbers, factorials);
 
         numbers = null;
-        factorials = Arrays.calc(numbers);
+        factorials = Arrays.calcFactorials(numbers);
         Console.printFactorialExpr(numbers, factorials);
 
         numbers = new int[]{0, 8, 9};
-        factorials = Arrays.calc(numbers);
+        factorials = Arrays.calcFactorials(numbers);
         Console.printFactorialExpr(numbers, factorials);
 
         numbers = new int[]{-3, 1, 7, 13};
-        factorials = Arrays.calc(numbers);
+        factorials = Arrays.calcFactorials(numbers);
         Console.printFactorialExpr(numbers, factorials);
 
         numbers = new int[]{-22, -0};
-        factorials = Arrays.calc(numbers);
+        factorials = Arrays.calcFactorials(numbers);
         Console.printFactorialExpr(numbers, factorials);
     }
 
@@ -56,17 +56,17 @@ public class Main {
             numbers[i] = (float) Math.random();
         }
 
-        float[] modified = Arrays.exceedingNums(numbers, -1);
-        Console.printModifiedNums(numbers, modified, -1);
+        float[] modified = Arrays.resetExceedingNums(numbers, -1);
+        Console.printOriginalModifiedArray(numbers, modified, -1);
 
-        modified = Arrays.exceedingNums(numbers, 15);
-        Console.printModifiedNums(numbers, modified, 15);
+        modified = Arrays.resetExceedingNums(numbers, 15);
+        Console.printOriginalModifiedArray(numbers, modified, 15);
 
-        modified = Arrays.exceedingNums(numbers, 0);
-        Console.printModifiedNums(numbers, modified, 0);
+        modified = Arrays.resetExceedingNums(numbers, 0);
+        Console.printOriginalModifiedArray(numbers, modified, 0);
 
-        modified = Arrays.exceedingNums(numbers, 14);
-        Console.printModifiedNums(numbers, modified, 14);
+        modified = Arrays.resetExceedingNums(numbers, 14);
+        Console.printOriginalModifiedArray(numbers, modified, 14);
     }
 
     private static void displayCharacterTriangle() {
@@ -82,19 +82,19 @@ public class Main {
 
     private static void uniqueNumbersFiller() {
         int[] uniqueNumbers = Arrays.createUniqueNumsArray(-30, -10, 23);
-        Console.printNumbers(uniqueNumbers, -30, -10, 23);
+        Console.printSortNumbers(uniqueNumbers, 23);
 
         uniqueNumbers = Arrays.createUniqueNumsArray(10, 50, 10);
-        Console.printNumbers(uniqueNumbers, 10, 50, 10);
+        Console.printSortNumbers(uniqueNumbers, 10);
 
         uniqueNumbers = Arrays.createUniqueNumsArray(-34, -34, 0);
-        Console.printNumbers(uniqueNumbers, -34, -34, 0);
+        Console.printSortNumbers(uniqueNumbers, 0);
 
         uniqueNumbers = Arrays.createUniqueNumsArray(-1, 2, -3);
-        Console.printNumbers(uniqueNumbers, -1, 2, -3);
+        Console.printSortNumbers(uniqueNumbers, -3);
 
         uniqueNumbers = Arrays.createUniqueNumsArray(5, -8, 2);
-        Console.printNumbers(uniqueNumbers, 5, -8, 2);
+        Console.printSortNumbers(uniqueNumbers, 2);
     }
 
     private static void textOutputTypeWriter() throws InterruptedException {

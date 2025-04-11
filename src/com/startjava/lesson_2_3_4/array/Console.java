@@ -40,7 +40,7 @@ public class Console {
         System.out.println();
     }
 
-    public static void printModifiedNums(float[] original, float[] modified, int index) {
+    public static void printOriginalModifiedArray(float[] original, float[] modified, int index) {
         if (modified == null) {
             return;
         }
@@ -67,29 +67,13 @@ public class Console {
         System.out.printf("Количество обнулённых ячеек: %d%n%n", count);
     }
 
-    public static void printReverseArray(int[] original, int[] reversed) {
+    public static void printBeforeAfterReversed(int[] original, int[] reversed) {
         System.out.println("   До реверса: " + java.util.Arrays.toString(original));
         System.out.println("После реверса: " + Arrays.toString(reversed));
     }
 
-    public static void printNumbers(int[] numbers, int start, int stop, int width) {
+    public static void printSortNumbers(int[] numbers, int width) {
         if (numbers == null) {
-            return;
-        }
-
-        int len = (int) (Math.abs(start - stop) * .75);
-        if (width < 1) {
-            System.out.printf("Ошибка: количество чисел в строке не должно быть < 1 (%d)%n", width);
-            return;
-        }
-
-        if (len < 0) {
-            System.out.printf("Ошибка: длина массива должна быть > 0 (%d)%n", len);
-            return;
-        }
-
-        if (start >= stop) {
-            System.out.printf("Ошибка: левая граница (%d) > правой (%d)%n", start, stop);
             return;
         }
 
@@ -108,7 +92,6 @@ public class Console {
 
     public static void printTriangle(char[] symbols, int start, int stop) {
         if (symbols == null) {
-            System.out.printf("Ошибка: левая граница (%c) > правой (%c)%n", start, stop);
             return;
         }
 

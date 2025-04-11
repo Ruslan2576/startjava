@@ -6,7 +6,7 @@ public class Arrays {
     private Arrays() {
     }
 
-    public static int[] calc(int... numbers) {
+    public static int[] calcFactorials(int... numbers) {
         if (numbers == null) {
             return null;
         }
@@ -26,7 +26,19 @@ public class Arrays {
 
     public static int[] createUniqueNumsArray(int start, int stop, int count) {
         int len = (int) (Math.abs(start - stop) * .75);
-        if (count < 1 || len < 0 || start >= stop) {
+
+        if (len < 0) {
+            System.out.printf("Ошибка: длина массива должна быть > 0 (%d)%n", len);
+            return null;
+        }
+
+        if (count < 1) {
+            System.out.printf("Ошибка: количество чисел в строке не должно быть < 1 (%d)%n", count);
+            return null;
+        }
+
+        if (start >= stop) {
+            System.out.printf("Ошибка: левая граница (%d) > правой (%d)%n", start, stop);
             return null;
         }
 
@@ -49,7 +61,7 @@ public class Arrays {
         return numbers;
     }
 
-    public static float[] exceedingNums(float[] numbers, int index) {
+    public static float[] resetExceedingNums(float[] numbers, int index) {
         if (index < 0 || index >= numbers.length) {
             return null;
         }
@@ -79,6 +91,7 @@ public class Arrays {
 
     public static char[] sortSymbols(char start, char stop, boolean direction) {
         if (start > stop) {
+            System.out.printf("Ошибка: левая граница (%c) > правой (%c)%n", start, stop);
             return null;
         }
 
