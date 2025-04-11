@@ -6,7 +6,7 @@ public class Console {
     private Console() {
     }
 
-    public static void printArray(float[] numbers) {
+    public static void printArrayTwoLines(float[] numbers) {
         for (int i = 0; i < numbers.length; i++) {
             System.out.printf("%.3f ", numbers[i]);
             if (i == 7) {
@@ -40,7 +40,7 @@ public class Console {
         System.out.println();
     }
 
-    public static void printOriginalModifiedArray(float[] original, float[] modified, int index) {
+    public static void printTwoArrays(float[] original, float[] modified, int index) {
         if (modified == null) {
             return;
         }
@@ -59,10 +59,10 @@ public class Console {
         }
 
         System.out.println("Исходный массив");
-        printArray(original);
+        printArrayTwoLines(original);
 
         System.out.println("Изменённый массив");
-        printArray(modified);
+        printArrayTwoLines(modified);
         System.out.printf("Значение из ячейки по переданному индексу: %.3f%n", modified[index]);
         System.out.printf("Количество обнулённых ячеек: %d%n%n", count);
     }
@@ -72,7 +72,7 @@ public class Console {
         System.out.println("После реверса: " + Arrays.toString(reversed));
     }
 
-    public static void printSortNumbers(int[] numbers, int width) {
+    public static void printSortedNumbers(int[] numbers, int width) {
         if (numbers == null) {
             return;
         }
@@ -90,7 +90,7 @@ public class Console {
         System.out.println("\n");
     }
 
-    public static void printTriangle(char[] symbols, int start, int stop) {
+    public static void printTriangle(char[] symbols) {
         if (symbols == null) {
             return;
         }

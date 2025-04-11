@@ -57,44 +57,44 @@ public class Main {
         }
 
         float[] modified = Arrays.resetExceedingNums(numbers, -1);
-        Console.printOriginalModifiedArray(numbers, modified, -1);
+        Console.printTwoArrays(numbers, modified, -1);
 
         modified = Arrays.resetExceedingNums(numbers, 15);
-        Console.printOriginalModifiedArray(numbers, modified, 15);
+        Console.printTwoArrays(numbers, modified, 15);
 
         modified = Arrays.resetExceedingNums(numbers, 0);
-        Console.printOriginalModifiedArray(numbers, modified, 0);
+        Console.printTwoArrays(numbers, modified, 0);
 
         modified = Arrays.resetExceedingNums(numbers, 14);
-        Console.printOriginalModifiedArray(numbers, modified, 14);
+        Console.printTwoArrays(numbers, modified, 14);
     }
 
     private static void displayCharacterTriangle() {
         char[] symbols = Arrays.sortSymbols('0', '9', true);
-        Console.printTriangle(symbols, '0', '9');
+        Console.printTriangle(symbols);
 
         symbols = Arrays.sortSymbols('/', '!', false);
-        Console.printTriangle(symbols, '/', '!');
+        Console.printTriangle(symbols);
 
         symbols = Arrays.sortSymbols('A', 'J', false);
-        Console.printTriangle(symbols, 'A', 'J');
+        Console.printTriangle(symbols);
     }
 
     private static void uniqueNumbersFiller() {
         int[] uniqueNumbers = Arrays.createUniqueNumsArray(-30, -10, 23);
-        Console.printSortNumbers(uniqueNumbers, 23);
+        Console.printSortedNumbers(uniqueNumbers, 23);
 
         uniqueNumbers = Arrays.createUniqueNumsArray(10, 50, 10);
-        Console.printSortNumbers(uniqueNumbers, 10);
+        Console.printSortedNumbers(uniqueNumbers, 10);
 
         uniqueNumbers = Arrays.createUniqueNumsArray(-34, -34, 0);
-        Console.printSortNumbers(uniqueNumbers, 0);
+        Console.printSortedNumbers(uniqueNumbers, 0);
 
         uniqueNumbers = Arrays.createUniqueNumsArray(-1, 2, -3);
-        Console.printSortNumbers(uniqueNumbers, -3);
+        Console.printSortedNumbers(uniqueNumbers, -3);
 
         uniqueNumbers = Arrays.createUniqueNumsArray(5, -8, 2);
-        Console.printSortNumbers(uniqueNumbers, 2);
+        Console.printSortedNumbers(uniqueNumbers, 2);
     }
 
     private static void textOutputTypeWriter() throws InterruptedException {
