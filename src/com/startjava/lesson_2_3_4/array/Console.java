@@ -45,12 +45,6 @@ public class Console {
             return;
         }
 
-        if (index < 0 || index >= original.length) {
-            System.out.printf("Ошибка: индекс %d находится за границами массива от %d до %d.%n",
-                    index, 0, original.length - 1);
-            return;
-        }
-
         int count = 0;
         for (float number : original) {
             if (number > modified[index]) {

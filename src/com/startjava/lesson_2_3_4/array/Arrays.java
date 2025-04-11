@@ -63,6 +63,8 @@ public class Arrays {
 
     public static float[] resetExceedingNums(float[] numbers, int index) {
         if (index < 0 || index >= numbers.length) {
+            System.out.printf("Ошибка: индекс %d находится за границами массива от %d до %d.%n",
+                    index, 0, numbers.length - 1);
             return null;
         }
 
