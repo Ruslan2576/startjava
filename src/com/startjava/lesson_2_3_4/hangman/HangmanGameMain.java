@@ -8,41 +8,17 @@ public class HangmanGameMain {
         Scanner scan = new Scanner(System.in);
         Random rand = new Random();
         String[] planets = {"Сатурн", "Юпитер", "Венера", "Марс", "Земля"};
-        String[] gallows = {"_______",
-                "|     |",
-                "|     @",
-                "|    /|\\",
-                "|    / \\",
-                "| GAME OVER!"
-        };
 
         String choice = "";
         while (!choice.equals("no")) {
-            String currentWord;
+            // Загадываем слово
             String word = planets[rand.nextInt(0, planets.length)].toUpperCase();
-            HangmanGame hg = new HangmanGame(word.length(), word.length() + gallows.length);
-            do {
-                // Проверка на корректность ввода и на совпадение.
-                char symbol = hg.inputSymbol();
-                boolean isContain = HangmanGame.check(word, symbol);
-                hg.contain(gallows, isContain, symbol);
+            HangmanGame hg = new HangmanGame(word);
 
-                // Вывод промежуточной инфорамации.
-                currentWord = printCurrentResult(hg.getCorrectSymbols(), word);
-                if (!currentWord.equals(word)) {
-                    System.out.println("текущее количество попыток: " + hg.getAttempts());
-                    System.out.print("Все ошибочные буквы: ");
-                    HangmanGame.printIncorrectArray(hg.getIncorrectSymbols());
-                }
-            } while (hg.getGallowsLen() < gallows.length && (!currentWord.equals(word)));
+            // Запускаем игру
+            hg.play();
 
-            if (currentWord.equals(word)) {
-                System.out.println("Поздравляю: вы победили!");
-            } else {
-                System.out.println("Вы проиграли: правильное слово - " + word);
-            }
-
-            // Предложение сыграть ещё.
+            // Предлогаем сыграть ещё
             System.out.print("Хотите продлжить игру [yes / no]: ");
             choice = scan.next();
             while (!choice.equals("yes") && !choice.equals("no")) {
@@ -50,25 +26,5 @@ public class HangmanGameMain {
                 choice = scan.next();
             }
         }
-    }
-
-    public static String printCurrentResult(char[] symbols, String word) {
-        StringBuilder mask = new StringBuilder();
-        for (int i = 0; i < word.length(); i++) {
-            boolean isContain = false;
-            for (char symbol : symbols) {
-                if (word.charAt(i) == symbol) {
-                    isContain = true;
-                    break;
-                }
-            }
-            if (isContain) {
-                mask.append(word.charAt(i));
-            } else {
-                mask.append("*");
-            }
-        }
-        System.out.println(mask);
-        return mask.toString();
     }
 }

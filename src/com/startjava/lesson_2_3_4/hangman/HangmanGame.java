@@ -11,10 +11,19 @@ public class HangmanGame {
     private int incorrectSymbolsCounter;
     private int allSymbols;
     private int gallowsLen;
+    private final String[] gallows = {"_______",
+            "|     |",
+            "|     @",
+            "|    /|\\",
+            "|    / \\",
+            "| GAME OVER!"
+    };
+    private final String word;
 
-    public HangmanGame(int lenCorrectSymbols, int lenIncorrectSymbols) {
-        this.correctSymbols = new char[lenCorrectSymbols];
-        this.incorrectSymbols = new char[lenIncorrectSymbols];
+    public HangmanGame(String word) {
+        this.correctSymbols = new char[word.length()];
+        incorrectSymbols = new char[word.length() + gallows.length];
+        this.word = word;
     }
 
     public char inputSymbol() {
@@ -85,18 +94,6 @@ public class HangmanGame {
         return true;
     }
 
-    public char[] getCorrectSymbols() {
-        return correctSymbols;
-    }
-
-    public char[] getIncorrectSymbols() {
-        return incorrectSymbols;
-    }
-
-    public int getAttempts() {
-        return attempts;
-    }
-
     public static void printIncorrectArray(char[] incorrectSymbols) {
         for (char c : incorrectSymbols) {
             if (c != 0) {
@@ -104,10 +101,6 @@ public class HangmanGame {
             }
         }
         System.out.println();
-    }
-
-    public int getGallowsLen() {
-        return gallowsLen;
     }
 
     private static boolean checkAllSymbols(char[] allInputSymbols, char symbol) {
@@ -121,5 +114,49 @@ public class HangmanGame {
 
     private static boolean checkCyrillic(char symbol) {
         return symbol >= 1040 && symbol <= 1071;
+    }
+
+    public void play() {
+        String currentWord;
+        do {
+            // Проверка на корректность ввода и на совпадение.
+            char symbol = inputSymbol();
+            boolean isContain = check(word, symbol);
+            contain(gallows, isContain, symbol);
+
+            // Вывод текущей инфорамации
+            currentWord = printCurrentResult(correctSymbols, word);
+            if (!currentWord.equals(word)) {
+                System.out.println("текущее количество попыток: " + attempts);
+                System.out.print("Все ошибочные буквы: ");
+                HangmanGame.printIncorrectArray(incorrectSymbols);
+            }
+        } while (gallowsLen < gallows.length && (!currentWord.equals(word)));
+
+        if (currentWord.equals(word)) {
+            System.out.println("Поздравляю: вы победили!");
+        } else {
+            System.out.println("Вы проиграли: правильное слово - " + word);
+        }
+    }
+
+    public static String printCurrentResult(char[] symbols, String word) {
+        StringBuilder mask = new StringBuilder();
+        for (int i = 0; i < word.length(); i++) {
+            boolean isContain = false;
+            for (char symbol : symbols) {
+                if (word.charAt(i) == symbol) {
+                    isContain = true;
+                    break;
+                }
+            }
+            if (isContain) {
+                mask.append(word.charAt(i));
+            } else {
+                mask.append("*");
+            }
+        }
+        System.out.println(mask);
+        return mask.toString();
     }
 }
