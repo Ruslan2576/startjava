@@ -4,55 +4,35 @@ import java.util.Scanner;
 
 public class CalculatorTest {
     public static void main(String[] args) {
-        Calculator calculator = new Calculator();
         Scanner scan = new Scanner(System.in);
         String choice = "";
         
         // Основной цикл
         while (!choice.equals("no")) {
-            // Получаем первое число
-            System.out.print("\nВведите первое число: ");
-            int num1 = scan.nextInt();
-
-            // Получаем и проверяем знак операции
-            char sign = 0;
+            Calculator calculator;
+            double result;
             do {
-                System.out.print("\nВведите знак операции (+, -, *, /, ^, %): ");
-                calculator.setSign(scan.next().charAt(0));
-            } while ((sign = calculator.getSign()) == 0);
+                // Получаем выражение
+                System.out.print("Введите выражение из трех аргументов, например, 2 ^ 10: ");
+                String[] expression = scan.nextLine().split(" ");
+                calculator = new Calculator(expression);
 
-            // Получаем второе число
-            int num2 = 0;
-            do {
-                System.out.print("\nВведите второе число: ");
-                num2 = scan.nextInt();
-            } while (!checkZero(num2, sign));
+                // Вычисляем выражение
+                result = calculator.shareArrayOnPart(expression);
+            } while (result == Double.MAX_VALUE);
 
-            // Вычисляем выражение и выводим результат
-            int result = calculator.calculate(num1, num2);
-            printResult(num1, num2, sign, result);
+            printResult(calculator.getNum1(), calculator.getNum2(), calculator.getSign(), result);
 
             // Продолжаем, или как?
             do {
-                System.out.println("Хотите продолжить вычисления? [yes/no]:");
-                choice = scan.next();
+                System.out.print("Хотите продолжить вычисления? [yes/no]: ");
+                choice = scan.nextLine();
             } while (!choice.equals("yes") && !choice.equals("no"));
         }
     }
 
-    public static boolean checkZero(int checkedNum, char sign) {
-        if (checkedNum == 0 && sign == '/') {
-            System.out.println("Ошибка: деление на ноль запрещено");
-            return false;
-        }
-        return true;
-    }
-
-    public static void printResult(int num1, int num2, char sign, int result) {
-        if (num2 < 0) {
-            System.out.printf("%d %s %d = %.2f%n", num1, sign, num2, (double) 1 / result);
-        } else {
-            System.out.printf("%d %s %d = %d%n", num1, sign, num2, result);
-        }
+    public static void printResult(int num1, int num2, String sign, double result) {
+        String template = result % 1 == 0 ? "%d %s %d = %.0f%n" : "%d %s %d = %.3f%n";
+        System.out.printf(template, num1, sign, num2, result);
     }
 }

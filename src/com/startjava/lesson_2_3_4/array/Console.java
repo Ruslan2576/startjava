@@ -62,7 +62,7 @@ public class Console {
     }
 
     public static void printBeforeAfterReversed(int[] original, int[] reversed) {
-        System.out.println("   До реверса: " + java.util.Arrays.toString(original));
+        System.out.println("   До реверса: " + Arrays.toString(original));
         System.out.println("После реверса: " + Arrays.toString(reversed));
     }
 

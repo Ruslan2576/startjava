@@ -12,19 +12,23 @@ public class HangmanGameMain {
         String choice = "";
         while (!choice.equals("no")) {
             // Загадываем слово
-            String word = planets[rand.nextInt(0, planets.length)].toUpperCase();
-            HangmanGame hg = new HangmanGame(word);
-
-            // Запускаем игру
-            hg.play();
+            String secretWord = planets[rand.nextInt(0, planets.length)].toUpperCase();
+            new HangmanGame(secretWord);
 
             // Предлогаем сыграть ещё
             System.out.print("Хотите продлжить игру [yes / no]: ");
-            choice = scan.next();
-            while (!choice.equals("yes") && !choice.equals("no")) {
-                System.out.print("Введите корректный ответ [yes / no]: ");
-                choice = scan.next();
+            choice = scan.next().toLowerCase();
+            if (!choice.equals("yes") && !choice.equals("no")) {
+                choice = getChoice(choice, scan);
             }
         }
+    }
+
+    private static String getChoice(String choice, Scanner scan) {
+        while (!choice.equals("yes") && !choice.equals("no")) {
+            System.out.print("Введите корректный ответ [yes / no]: ");
+            choice = scan.next();
+        }
+        return choice;
     }
 }
