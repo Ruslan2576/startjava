@@ -24,7 +24,19 @@ public class Calculator {
         return sign;
     }
 
-    public boolean setSign(String sign) {
+    public double shareArrayOnPart(String[] expression) {
+        if (!setSign(expression[1])) {
+            return Double.MAX_VALUE;
+        }
+
+        boolean answer = checkZero();
+        if (!answer) {
+            return Double.MAX_VALUE;
+        }
+        return calculate(num1, num2);
+    }
+
+    private boolean setSign(String sign) {
         switch (sign) {
             case "+":
             case "-":
@@ -41,7 +53,7 @@ public class Calculator {
         }
     }
 
-    public double calculate(int num1, int num2) {
+    private double calculate(int num1, int num2) {
         double result = 0;
         if (sign.equals("+")) {
             result = num1 + num2;
@@ -59,24 +71,18 @@ public class Calculator {
         return result;
     }
 
-    public double shareArrayOnPart(String[] expression) {
-        if (!setSign(expression[1])) {
-            return Double.MAX_VALUE;
+    private boolean checkZero() {
+        double result = (double) num1 / num2;
+        if (Double.isNaN(result)) {
+            System.out.println("Ошибка: результат выражения: " + result);
+            return false;
         }
 
-        boolean answer = checkZero(num2, sign);
-        double result = 0;
-        if (answer) {
-            result = calculate(num1, num2);
-        }
-        return result;
-    }
-
-    public boolean checkZero(int checkedNum, String sign) {
-        if (checkedNum == 0 && sign.equals("/")) {
+        if (num2 == 0 && sign.equals("/")) {
             System.out.println("Ошибка: деление на ноль запрещено");
             return false;
         }
+
         return true;
     }
 }
