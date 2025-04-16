@@ -1,5 +1,6 @@
 package com.startjava.lesson_2_3_4.calculator;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class CalculatorTest {
@@ -34,8 +35,9 @@ public class CalculatorTest {
     }
 
     public static void printResult(int num1, int num2, String sign, double result) {
-        String template = result % 1 == 0 ? "%d %s %d = %.0f%n" : "%d %s %d = %.3f%n";
-        System.out.printf(template, num1, sign, num2, result);
+        DecimalFormat df = new DecimalFormat("#.###");
+        System.out.printf("%d %s %d = ", num1, sign, num2);
+        System.out.println(df.format(result));
     }
 
     private static String getChoice(String choice, Scanner scan) {
