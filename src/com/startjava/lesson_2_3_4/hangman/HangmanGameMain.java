@@ -15,20 +15,16 @@ public class HangmanGameMain {
             String secretWord = planets[rand.nextInt(0, planets.length)].toUpperCase();
             new HangmanGame(secretWord);
 
-            // Предлогаем сыграть ещё
-            System.out.print("Хотите продлжить игру [yes / no]: ");
+            // Предлагаем сыграть ещё
+            System.out.print("Хотите продолжить игру [yes / no]: ");
             choice = scan.next().toLowerCase();
             if (!choice.equals("yes") && !choice.equals("no")) {
-                choice = getChoice(choice, scan);
+                System.out.print("Введите корректный ответ [yes / no]: ");
+                choice = scan.next();
+                if (!choice.equals("yes")) {
+                    break;
+                }
             }
         }
-    }
-
-    private static String getChoice(String choice, Scanner scan) {
-        while (!choice.equals("yes") && !choice.equals("no")) {
-            System.out.print("Введите корректный ответ [yes / no]: ");
-            choice = scan.next();
-        }
-        return choice;
     }
 }

@@ -3,13 +3,10 @@ package com.startjava.lesson_2_3_4.hangman;
 import java.util.Scanner;
 
 public class HangmanGame {
-    private final char[] correctSymbols;
-    private final char[] wrongSymbols;
-    private final char[] allInputSymbols = new char[33];
-    private int attempts = 5;
-    private int correctSymbolsCounter;
-    private int wrongSymbolsCounter;
-    private int allSymbols;
+    private final char[] wrongLetters;
+    private final char[] allInputLetters = new char[33];
+    private int wrongLettersCounter;
+    private int allLetters;
     private int gallowsLen;
     private final String[] gallows = {
             "_______",
@@ -19,33 +16,39 @@ public class HangmanGame {
             "|    / \\",
             "| GAME OVER!"
     };
+    private int attempts = gallows.length - 1;
     private final String secretWord;
 
     public HangmanGame(String word) {
-        correctSymbols = new char[word.length()];
-        wrongSymbols = new char[word.length() + gallows.length - 1];
+        wrongLetters = new char[word.length() + gallows.length - 1];
         secretWord = word;
         play();
     }
 
     private void play() {
-        String currentWord;
+        // String currentWord;
+        String mask = createMask(secretWord);
         do {
-            // Вывод текущей инфорамации
-            currentWord = printCurrentResult(correctSymbols, secretWord);
-            System.out.println("текущее количество попыток: " + attempts);
+            // Вывод текущей информации
+            System.out.println(mask);
+            System.out.println("Количество попыток: " + attempts);
             System.out.print("Все ошибочные буквы: ");
-            printWrongArray(wrongSymbols);
+            printWrongLetters(wrongLetters);
 
             // Проверка на корректность ввода и на совпадение.
-            if (!currentWord.equals(secretWord)) {
-                char symbol = inputSymbol();
-                boolean isContain = hasSymbolInSecretWord(secretWord, symbol);
-                addSymbolToArrays(isContain, symbol);
+            if (!mask.equals(secretWord)) {
+                char letter = inputSymbol();
+                boolean isContain = hasSymbolInSecretWord(secretWord, letter);
+                mask = printCurrentResult(letter, mask);
+                addLetterToArrays(isContain, letter);
             }
-        } while (gallowsLen < gallows.length - 1 && (!currentWord.equals(secretWord)));
 
-        if (currentWord.equals(secretWord)) {
+            if (mask.equals(secretWord)) {
+                System.out.println(mask);
+            }
+        } while (gallowsLen < gallows.length - 1 && (!mask.equals(secretWord)));
+
+        if (mask.equals(secretWord)) {
             System.out.println("Поздравляю: вы победили!");
         } else {
             System.out.println(gallows[5]);
@@ -53,28 +56,24 @@ public class HangmanGame {
         }
     }
 
-    private String printCurrentResult(char[] symbols, String word) {
-        StringBuilder mask = new StringBuilder();
-        for (int i = 0; i < word.length(); i++) {
-            boolean isContain = false;
-            for (char symbol : symbols) {
-                if (word.charAt(i) == symbol) {
-                    isContain = true;
-                    break;
-                }
-            }
-            if (isContain) {
-                mask.append(word.charAt(i));
-            } else {
-                mask.append("*");
-            }
-        }
-        System.out.println(mask);
-        return mask.toString();
+    private String createMask(String secretWord) {
+        return "*".repeat(secretWord.length());
     }
 
-    private void printWrongArray(char[] wrongSymbols) {
-        for (char c : wrongSymbols) {
+    private String printCurrentResult(char letter, String mask) {
+        StringBuilder sb = new StringBuilder(mask);
+        int index;
+        for (int i = 0; i < secretWord.length(); i++) {
+            index = secretWord.indexOf(letter, i);
+            if (index != -1) {
+                sb.replace(index, index + 1, String.valueOf(letter));
+            }
+        }
+        return sb.toString();
+    }
+
+    private void printWrongLetters(char[] wrongLetters) {
+        for (char c : wrongLetters) {
             if (c != 0) {
                 System.out.print(c + ", ");
             }
@@ -84,35 +83,46 @@ public class HangmanGame {
 
     private char inputSymbol() {
         Scanner scan = new Scanner(System.in);
-        char symbol;
+        char letter;
         boolean isRepeat = true;
-        boolean isCyrillic;
 
         do {
             System.out.print("Угадайте слово введя букву: ");
-            symbol = scan.next().toUpperCase().charAt(0);
+            letter = scan.next().toUpperCase().charAt(0);
 
-            isCyrillic = checkCyrillic(symbol);
-            if (!isCyrillic) {
-                System.out.println("Вы ввели не кириллический символ: " + symbol);
+            if (!isCyrillic(letter)) {
+                System.out.println("Вы ввели не кириллический символ: " + letter);
                 continue;
             }
 
-            isRepeat = checkAllSymbols(allInputSymbols, symbol);
+            isRepeat = checkAllLetters(allInputLetters, letter);
             if (isRepeat) {
-                System.out.println("Вы уже вводили букву: " + symbol);
+                System.out.println("Вы уже вводили букву: " + letter);
             } else {
-                allInputSymbols[allSymbols++] = symbol;
+                allInputLetters[allLetters++] = letter;
             }
         } while (isRepeat);
 
-        return symbol;
+        return letter;
     }
 
-    private boolean hasSymbolInSecretWord(String word, char symbol) {
+    private static boolean isCyrillic(char letter) {
+        return String.valueOf(letter).matches("[А-Я]");
+    }
+
+    private static boolean checkAllLetters(char[] allInputLetters, char letter) {
+        for (char c : allInputLetters) {
+            if (c == letter) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean hasSymbolInSecretWord(String word, char letter) {
         boolean isCorrect = false;
         for (int i = 0; i < word.length(); i++) {
-            if (word.toUpperCase().charAt(i) == symbol) {
+            if (word.toUpperCase().charAt(i) == letter) {
                 isCorrect = true;
                 break;
             }
@@ -120,9 +130,8 @@ public class HangmanGame {
         return isCorrect;
     }
 
-    private void addSymbolToArrays(boolean isContain, char symbol) {
+    private void addLetterToArrays(boolean isContain, char letter) {
         if (isContain) {
-            correctSymbols[correctSymbolsCounter++] = symbol;
             if (attempts < gallows.length - 1) {
                 attempts++;
             }
@@ -131,8 +140,8 @@ public class HangmanGame {
                 gallowsLen--;
             }
         } else {
-            if (checkWrongSymbols(wrongSymbols, symbol)) {
-                wrongSymbols[wrongSymbolsCounter++] = symbol;
+            if (checkWrongLetters(wrongLetters, letter)) {
+                wrongLetters[wrongLettersCounter++] = letter;
             }
 
             gallowsLen++;
@@ -144,25 +153,12 @@ public class HangmanGame {
         }
     }
 
-    private boolean checkWrongSymbols(char[] letters, char symbol) {
+    private boolean checkWrongLetters(char[] letters, char letter) {
         for (char c : letters) {
-            if (c == symbol) {
+            if (c == letter) {
                 return false;
             }
         }
         return true;
-    }
-
-    private static boolean checkCyrillic(char symbol) {
-        return symbol >= 1040 && symbol <= 1071;
-    }
-
-    private static boolean checkAllSymbols(char[] allInputSymbols, char symbol) {
-        for (char c : allInputSymbols) {
-            if (c == symbol) {
-                return true;
-            }
-        }
-        return false;
     }
 }
