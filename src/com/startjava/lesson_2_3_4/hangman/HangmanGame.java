@@ -22,10 +22,9 @@ public class HangmanGame {
     public HangmanGame(String word) {
         wrongLetters = new char[word.length() + gallows.length - 1];
         secretWord = word;
-        play();
     }
 
-    private void play() {
+    public void play() {
         // String currentWord;
         String mask = createMask(secretWord);
         do {
