@@ -7,44 +7,35 @@ public class CalculatorTest {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         String choice = "";
-        
-        // Основной цикл
-        while (!choice.equals("no")) {
-            Calculator calculator;
-            double result;
-            do {
-                // Получаем выражение
-                System.out.print("Введите выражение из трех аргументов, например, 2 ^ 10: ");
-                String[] expression = scan.nextLine().split(" ");
-                calculator = new Calculator(expression);
 
-                // Вычисляем выражение
-                result = calculator.shareArrayOnPart(expression);
-            } while (result == Double.MAX_VALUE);
+        while (!choice.equals("no")) {
+            if (!choice.equals("yes") && !choice.isEmpty()) {
+                System.out.print("Введите корректный ответ [yes / no]: ");
+                choice = scan.nextLine().toLowerCase();
+                if (!choice.equals("yes")) {
+                    continue;
+                }
+            }
+
+            Calculator calculator = new Calculator();
+            System.out.print("Введите выражение из трех аргументов, например, 2 ^ 10: ");
+            String[] expression = scan.nextLine().split(" ");
+            double result = calculator.calculate(expression);
 
             // Вывести результат
-            printResult(calculator.getNum1(), calculator.getNum2(), calculator.getSign(), result);
+            printResult(expression, result);
 
             // Продолжаем, или как?
             System.out.print("Хотите продлжить игру [yes / no]: ");
             choice = scan.nextLine().toLowerCase();
-            if (!choice.equals("yes") && !choice.equals("no")) {
-                choice = getChoice(choice, scan);
-            }
         }
     }
 
-    public static void printResult(int num1, int num2, String sign, double result) {
-        DecimalFormat df = new DecimalFormat("#.###");
-        System.out.printf("%d %s %d = ", num1, sign, num2);
-        System.out.println(df.format(result));
-    }
-
-    private static String getChoice(String choice, Scanner scan) {
-        while (!choice.equals("yes") && !choice.equals("no")) {
-            System.out.print("Введите корректный ответ [yes / no]: ");
-            choice = scan.nextLine();
+    public static void printResult(String[] expression, double result) {
+        if (result != Double.MAX_VALUE) {
+            DecimalFormat df = new DecimalFormat("#.###");
+            System.out.printf("%s %s %s = ", expression[0], expression[1], expression[2]);
+            System.out.println(df.format(result));
         }
-        return choice;
     }
 }
