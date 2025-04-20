@@ -5,52 +5,46 @@ import java.lang.Math;
 public class Calculator {
     private int num1;
     private int num2;
-    private String sign;
 
-    public double calculate(String[] expression) {
-        num1 = Integer.parseInt(expression[0]);
-        num2 = Integer.parseInt(expression[2]);
-        sign = expression[1];
+    public double calculate(String expression) {
+        String[] exprArray = expression.split(" ");
+        num1 = Integer.parseInt(exprArray[0]);
+        num2 = Integer.parseInt(exprArray[2]);
+        String sign = exprArray[1];
 
-        double result;
         switch (sign) {
             case "+":
-                result = num1 + num2;
-                break;
+                return num1 + num2;
             case "-":
-                result = num1 - num2;
-                break;
+                return num1 - num2;
             case "*":
-                result = num1 * num2;
-                break;
+                return num1 * num2;
             case "/":
-                if (!checkZero()) {
-                    return Double.MAX_VALUE;
+                if (checkZero()) {
+                    return (double) num1 / num2;
                 }
-                result = (double) num1 / num2;
-                break;
+                return Double.MAX_VALUE;
             case "%":
-                result = Math.floorMod(num1, num2);
-                break;
+                if (checkZero()) {
+                    return Math.floorMod(num1, num2);
+                }
+                return Double.MAX_VALUE;
             case "^":
-                result = Math.pow(num1, num2);
-                break;
+                return Math.pow(num1, num2);
             default:
                 System.out.printf("Ошибка: операция '%s' не поддерживается%n", sign);
                 System.out.println("Доступные операции [+, -, *, /, %, ^]");
                 return Double.MAX_VALUE;
         }
-        return result;
     }
 
     private boolean checkZero() {
-        double result = (double) num1 / num2;
-        if (Double.isNaN(result)) {
-            System.out.println("Ошибка: результат выражения: " + result);
+        if (num1 == 0 && num2 == 0) {
+            System.out.println("Ошибка: результат выражения: " + Double.NaN);
             return false;
         }
 
-        if (num2 == 0 && sign.equals("/")) {
+        if (num1 != 0 && num2 == 0) {
             System.out.println("Ошибка: деление на ноль запрещено");
             return false;
         }

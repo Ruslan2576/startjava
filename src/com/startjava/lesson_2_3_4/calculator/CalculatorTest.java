@@ -19,22 +19,22 @@ public class CalculatorTest {
 
             Calculator calculator = new Calculator();
             System.out.print("Введите выражение из трех аргументов, например, 2 ^ 10: ");
-            String[] expression = scan.nextLine().split(" ");
+            String expression = scan.nextLine();
             double result = calculator.calculate(expression);
 
             // Вывести результат
             printResult(expression, result);
 
             // Продолжаем, или как?
-            System.out.print("Хотите продлжить игру [yes / no]: ");
+            System.out.print("Хотите продолжить игру [yes / no]: ");
             choice = scan.nextLine().toLowerCase();
         }
     }
 
-    public static void printResult(String[] expression, double result) {
+    public static void printResult(String expression, double result) {
         if (result != Double.MAX_VALUE) {
             DecimalFormat df = new DecimalFormat("#.###");
-            System.out.printf("%s %s %s = ", expression[0], expression[1], expression[2]);
+            System.out.print(expression + " = ");
             System.out.println(df.format(result));
         }
     }
