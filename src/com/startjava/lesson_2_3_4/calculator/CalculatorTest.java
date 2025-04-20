@@ -32,10 +32,9 @@ public class CalculatorTest {
     }
 
     public static void printResult(String expression, double result) {
-        if (result != Double.MAX_VALUE) {
+        if (!Double.isNaN(result)) {
             DecimalFormat df = new DecimalFormat("#.###");
-            System.out.print(expression + " = ");
-            System.out.println(df.format(result));
+            System.out.println(expression + " = " + df.format(result));
         }
     }
 }
