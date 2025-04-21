@@ -1,54 +1,64 @@
 package com.startjava.lesson_2_3_4.calculator;
 
 import java.lang.Math;
+import java.text.DecimalFormat;
+import javax.naming.OperationNotSupportedException;
 
 public class Calculator {
-    private int num1;
-    private int num2;
-
-    public double calculate(String expression) {
+    public static void calculate(String expression) {
         String[] elements = expression.split(" ");
-        num1 = Integer.parseInt(elements[0]);
-        num2 = Integer.parseInt(elements[2]);
-        String sign = elements[1];
+        double result;
+        String sign = "";
 
-        switch (sign) {
-            case "+":
-                return num1 + num2;
-            case "-":
-                return num1 - num2;
-            case "*":
-                return num1 * num2;
-            case "/":
-                if (checkZero()) {
-                    return (double) num1 / num2;
+        try {
+            if (!checkInteger(elements)) {
+                throw new NumberFormatException();
+            }
+
+            int num1 = Integer.parseInt(elements[0]);
+            int num2 = Integer.parseInt(elements[2]);
+            sign = elements[1];
+
+            result = switch (sign) {
+                case "+" -> num1 + num2;
+                case "-" -> num1 - num2;
+                case "*" -> num1 * num2;
+                case "/" -> {
+                    if (num2 == 0) {
+                        throw new ArithmeticException();
+                    }
+                    yield (double) num1 / num2;
                 }
-                return Double.NaN;
-            case "%":
-                if (checkZero()) {
-                    return Math.floorMod(num1, num2);
-                }
-                return Double.NaN;
-            case "^":
-                return Math.pow(num1, num2);
-            default:
-                System.out.printf("Ошибка: операция '%s' не поддерживается%n", sign);
-                System.out.println("Доступные операции [+, -, *, /, %, ^]");
-                return Double.NaN;
+                case "%" -> Math.floorMod(num1, num2);
+                case "^" -> Math.pow(num1, num2);
+                default -> throw new OperationNotSupportedException();
+            };
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("Ошибка: неправильный ввод выражения");
+            return;
+        } catch (ArithmeticException ex) {
+            System.out.println("Ошибка: деление на ноль запрещено");
+            return;
+        } catch (NumberFormatException ex) {
+            System.out.println("Ошибка: вы использовали не целые числа");
+            return;
+        } catch (OperationNotSupportedException ex) {
+            System.out.printf("Ошибка: операция '%s' не поддерживается%n", sign);
+            System.out.println("Доступные операции [+, -, *, /, %, ^]");
+            return;
         }
+
+        printResult(expression, result);
     }
 
-    private boolean checkZero() {
-        if (num1 == 0 && num2 == 0) {
-            System.out.println("Ошибка: результат выражения: " + Double.NaN);
-            return false;
-        }
+    private static boolean checkInteger(String[] elements) {
+        double num1 = Double.parseDouble(elements[0]);
+        double num2 = Double.parseDouble(elements[2]);
+        return num1 % 1 == 0 && num2 % 1 == 0;
+    }
 
-        if (num2 == 0) {
-            System.out.println("Ошибка: деление на ноль запрещено");
-            return false;
-        }
-
-        return true;
+    private static void printResult(String expression, double result) {
+        DecimalFormat df = new DecimalFormat("#.###");
+        System.out.println(expression + " = " + df.format(result));
     }
 }
