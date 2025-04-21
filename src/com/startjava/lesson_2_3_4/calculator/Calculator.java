@@ -8,16 +8,12 @@ public class Calculator {
     public static void calculate(String expression) {
         String[] elements = expression.split(" ");
         double result;
-        String sign = "";
+        String sign = null;
 
         try {
-            if (!checkInteger(elements)) {
-                throw new NumberFormatException();
-            }
-
+            sign = elements[1];
             int num1 = Integer.parseInt(elements[0]);
             int num2 = Integer.parseInt(elements[2]);
-            sign = elements[1];
 
             result = switch (sign) {
                 case "+" -> num1 + num2;
@@ -49,12 +45,6 @@ public class Calculator {
         }
 
         printResult(expression, result);
-    }
-
-    private static boolean checkInteger(String[] elements) {
-        double num1 = Double.parseDouble(elements[0]);
-        double num2 = Double.parseDouble(elements[2]);
-        return num1 % 1 == 0 && num2 % 1 == 0;
     }
 
     private static void printResult(String expression, double result) {
