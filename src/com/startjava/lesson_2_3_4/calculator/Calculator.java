@@ -3,12 +3,18 @@ package com.startjava.lesson_2_3_4.calculator;
 import java.lang.Math;
 
 public class Calculator {
+    static final int ELEMENTS_LENGTH = 3;
+
     public static Double calculate(String expression) {
         String[] elements = expression.split(" ");
         double result;
         String sign = null;
 
         try {
+            if (elements.length != ELEMENTS_LENGTH) {
+                throw new ArrayIndexOutOfBoundsException();
+            }
+
             sign = elements[1];
             int num1 = Integer.parseInt(elements[0]);
             int num2 = Integer.parseInt(elements[2]);
@@ -36,6 +42,9 @@ public class Calculator {
         } catch (UnsupportedOperationException ex) {
             System.out.printf("Ошибка: операция '%s' не поддерживается%n", sign);
             System.out.println("Доступные операции [+, -, *, /, %, ^]");
+            return null;
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("Ошибка: введено неверное выражение");
             return null;
         }
         return result;

@@ -21,9 +21,7 @@ public class CalculatorTest {
             Double result = Calculator.calculate(expression);
 
             // Вывести результат
-            if (result != null) {
-                printResult(expression, result);
-            }
+            printResult(expression, result);
 
             // Продолжаем, или как?
             System.out.print("Хотите продолжить игру [yes / no]: ");
@@ -36,8 +34,10 @@ public class CalculatorTest {
         return scan.nextLine().replaceAll("\\s+", " ").trim();
     }
 
-    private static void printResult(String expression, double result) {
-        DecimalFormat df = new DecimalFormat("#.###");
-        System.out.println(expression + " = " + df.format(result));
+    private static void printResult(String expression, Double result) {
+        if (result != null) {
+            DecimalFormat df = new DecimalFormat("#.###");
+            System.out.println(expression + " = " + df.format(result));
+        }
     }
 }
