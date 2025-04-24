@@ -51,7 +51,7 @@ public class GuessNumber {
                 }
                 break;
             } catch (IOException ex) {
-                System.out.print("Число должно входить в отрезок [1, 100].\n" +
+                System.out.print("Число должно входить в отрезок [1, 100]\n" +
                         "Попробуйте еще раз: ");
                 number = scan.nextInt();
             }
