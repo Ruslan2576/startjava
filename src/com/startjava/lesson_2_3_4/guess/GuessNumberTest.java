@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class GuessNumberTest {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
+        System.out.println("Угадай число в диапазоне [1, 100]");
 
         // Получаем имя и инициализируем первого игрока
         System.out.print("Игрок №1 введите своё имя: ");
@@ -17,17 +18,21 @@ public class GuessNumberTest {
         Player secondPlayer = new Player(name);
 
         GuessNumber game = new GuessNumber(firstPlayer, secondPlayer);
-        String choice = "";
+        String choice = "yes";
 
         while (!choice.equals("no")) {
+            if (!choice.equals("yes")) {
+                System.out.print("Введите корректный ответ [yes / no]: ");
+                choice = scan.next().toLowerCase();
+                if (!choice.equals("yes")) {
+                    continue;
+                }
+            }
             // Запуск игры
             game.play();
 
-            // Продолжим?
-            do {
-                System.out.print("Хотите продолжить игру? [yes/no]: ");
-                choice = scan.next();
-            } while (!choice.equals("yes") && !choice.equals("no"));
+            System.out.print("Хотите продолжить игру? [yes/no]: ");
+            choice = scan.next().toLowerCase();
         }
     }
 }
