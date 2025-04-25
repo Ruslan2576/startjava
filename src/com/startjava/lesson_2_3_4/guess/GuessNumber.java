@@ -1,12 +1,13 @@
 package com.startjava.lesson_2_3_4.guess;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class GuessNumber {
+    private static final int MAX_ATTEMPTS = 10;
     private final Player firstPlayer;
     private final Player secondPlayer;
-    private static final int MAX_ATTEMPTS = 10;
 
     public GuessNumber(Player firstPlayer, Player secondPlayer) {
         this.firstPlayer = firstPlayer;
@@ -22,18 +23,19 @@ public class GuessNumber {
                 break;
             }
 
+            checkAttempts(firstPlayer);
+
             inputNumber(secondPlayer);
             if (checkNumber(secondPlayer, secretNumber)) {
                 break;
             }
+            checkAttempts(secondPlayer);
         }
-        System.out.printf("Все числа введенные %s: ", firstPlayer.getName());
-        firstPlayer.showAllNumbers();
-        System.out.printf("Все числа введенные %s: ", secondPlayer.getName());
-        secondPlayer.showAllNumbers();
 
-        firstPlayer.clearAllNumbers();
-        secondPlayer.clearAllNumbers();
+        printResult(firstPlayer, secondPlayer);
+
+        firstPlayer.clearNumbers();
+        secondPlayer.clearNumbers();
 
         firstPlayer.setAttempts(1);
         secondPlayer.setAttempts(1);
@@ -56,14 +58,12 @@ public class GuessNumber {
                 number = scan.nextInt();
             }
         } while (true);
-
-        player.setNumber(number);
+        player.addNumber(number);
         player.setAttempts(player.getAttempts() + 1);
     }
 
     private boolean checkNumber(Player player, int secretNumber) {
-        int currNumber = player.getNumber();
-        player.setNumbers(currNumber);
+        int currNumber = player.getNumbers()[player.getNumbers().length - 1];
 
         if (currNumber == secretNumber) {
             System.out.printf("%s угадал число %d с %d-й попытки.%n",
@@ -74,10 +74,19 @@ public class GuessNumber {
         System.out.printf("%d %s загаданного числа%n",
                 currNumber, currNumber > secretNumber ? "больше" : "меньше");
 
+        return false;
+    }
+
+    public void checkAttempts(Player player) {
         if (player.getAttempts() > MAX_ATTEMPTS) {
             System.out.printf("У %s закончились попытки!%n", player.getName());
         }
-
-        return false;
+    }
+    
+    public void printResult(Player firstPlayer, Player secondPlayer) {
+        System.out.printf("Все числа введенные %s: ", firstPlayer.getName());
+        System.out.println(Arrays.toString(firstPlayer.getNumbers()).replaceAll("[\\[\\],]", ""));
+        System.out.printf("Все числа введенные %s: ", secondPlayer.getName());
+        System.out.println(Arrays.toString(secondPlayer.getNumbers()).replaceAll("[\\[\\],]", ""));
     }
 }

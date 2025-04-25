@@ -31,7 +31,7 @@ public class GuessNumberTest {
             // Запуск игры
             game.play();
 
-            System.out.print("Хотите продолжить игру? [yes/no]: ");
+            System.out.print("Хотите продолжить игру? [yes / no]: ");
             choice = scan.next().toLowerCase();
         }
     }

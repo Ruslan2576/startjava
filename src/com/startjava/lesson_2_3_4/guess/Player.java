@@ -4,8 +4,7 @@ import java.util.Arrays;
 
 public class Player {
     private final String name;
-    private int number;
-    private final int[] allNumbers = new int[10];
+    private final int[] numbers = new int[10];
     private int lenAllNumbers;
     private int attempts = 1;
 
@@ -17,41 +16,26 @@ public class Player {
         return name;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
+    public int getAttempts() {
+        return attempts;
     }
 
     public void setAttempts(int attempts) {
         this.attempts = attempts;
     }
 
-    public int getAttempts() {
-        return attempts;
+    public int[] getNumbers() {
+        return Arrays.copyOf(numbers, attempts - 1);
     }
 
-    public int[] getAllNumbers() {
-        return Arrays.copyOf(allNumbers, attempts - 1);
-    }
-
-    public void setNumbers(int number) {
+    public void addNumber(int number) {
         if (number > 0 && number < 101) {
-            allNumbers[lenAllNumbers++] = number;
+            numbers[lenAllNumbers++] = number;
         }
     }
 
-    public void clearAllNumbers() {
-        Arrays.fill(allNumbers, 0, attempts - 1, 0);
+    public void clearNumbers() {
+        Arrays.fill(numbers, 0, attempts - 1, 0);
         lenAllNumbers = 0;
-    }
-
-    public void showAllNumbers() {
-        for (int number : getAllNumbers()) {
-            System.out.printf("%d ", number);
-        }
-        System.out.println();
     }
 }
