@@ -8,37 +8,52 @@ public class GuessNumber {
     private static final int MAX_ATTEMPTS = 10;
     private final Player firstPlayer;
     private final Player secondPlayer;
+    private final Player thirdPlayer;
 
-    public GuessNumber(Player firstPlayer, Player secondPlayer) {
-        this.firstPlayer = firstPlayer;
-        this.secondPlayer = secondPlayer;
+    public GuessNumber(Player[] players) {
+        this.firstPlayer = players[0];
+        this.secondPlayer = players[1];
+        this.thirdPlayer = players[2];
     }
 
     public void play() {
-        System.out.println("Игра началась! У каждого игрока по 10 попыток");
-        int secretNumber = (int) (Math.random() * 100) + 1;
-        while (secondPlayer.getAttempts() <= MAX_ATTEMPTS) {
-            inputNumber(firstPlayer);
-            if (checkNumber(firstPlayer, secretNumber)) {
-                break;
+        int countRound = 1;
+
+        while (countRound < 4) {
+            System.out.printf("Раунд №%d%n", countRound);
+            System.out.println("Игра началась! У каждого игрока по 10 попыток");
+            int secretNumber = (int) (Math.random() * 100) + 1;
+            while (thirdPlayer.getAttempts() <= MAX_ATTEMPTS) {
+                inputNumber(firstPlayer);
+                if (checkNumber(firstPlayer, secretNumber)) {
+                    break;
+                }
+
+                checkAttempts(firstPlayer);
+
+                inputNumber(secondPlayer);
+                if (checkNumber(secondPlayer, secretNumber)) {
+                    break;
+                }
+                checkAttempts(secondPlayer);
+
+                inputNumber(thirdPlayer);
+                if (checkNumber(thirdPlayer, secretNumber)) {
+                    break;
+                }
+                checkAttempts(thirdPlayer);
             }
 
-            checkAttempts(firstPlayer);
+            printCurrentResult();
 
-            inputNumber(secondPlayer);
-            if (checkNumber(secondPlayer, secretNumber)) {
-                break;
-            }
-            checkAttempts(secondPlayer);
+            firstPlayer.clear();
+            secondPlayer.clear();
+
+            firstPlayer.setAttempts(1);
+            secondPlayer.setAttempts(1);
+            countRound++;
         }
-
-        printResult(firstPlayer, secondPlayer);
-
-        firstPlayer.clearNumbers();
-        secondPlayer.clearNumbers();
-
-        firstPlayer.setAttempts(1);
-        secondPlayer.setAttempts(1);
+        printFinalResult();
     }
 
     private void inputNumber(Player player) {
@@ -63,11 +78,12 @@ public class GuessNumber {
     }
 
     private boolean checkNumber(Player player, int secretNumber) {
-        int currNumber = player.getNumbers()[player.getNumbers().length - 1];
+        int currNumber = player.getLastElementInNumbers();
 
         if (currNumber == secretNumber) {
             System.out.printf("%s угадал число %d с %d-й попытки.%n",
                     player.getName(), currNumber, player.getAttempts() - 1);
+            player.setVictories();
             return true;
         }
 
@@ -83,10 +99,42 @@ public class GuessNumber {
         }
     }
     
-    public void printResult(Player firstPlayer, Player secondPlayer) {
+    public void printCurrentResult() {
         System.out.printf("Все числа введенные %s: ", firstPlayer.getName());
         System.out.println(Arrays.toString(firstPlayer.getNumbers()).replaceAll("[\\[\\],]", ""));
+
         System.out.printf("Все числа введенные %s: ", secondPlayer.getName());
         System.out.println(Arrays.toString(secondPlayer.getNumbers()).replaceAll("[\\[\\],]", ""));
+
+        System.out.printf("Все числа введенные %s: ", thirdPlayer.getName());
+        System.out.println(Arrays.toString(thirdPlayer.getNumbers()).replaceAll("[\\[\\],]", ""));
+    }
+
+    public void printFinalResult() {
+        int a = firstPlayer.getVictories();
+        int b = secondPlayer.getVictories();
+        int c = thirdPlayer.getVictories();
+
+        if (a > b && a > c) {
+            System.out.printf("По результатам трёх раундов победу одержал %s, у него %d побед(ы)%n",
+                    firstPlayer.getName(), a);
+        } else if (b > a && b > c) {
+            System.out.printf("По результатам трёх раундов победу одержал %s, у него %d побед(ы)%n",
+                    secondPlayer.getName(), b);
+        } else if (c > a && c > b) {
+            System.out.printf("По результатам трёх раундов победу одержал %s, у него %d побед(ы)%n",
+                    thirdPlayer.getName(), c);
+        } else if (a == b && a == c) {
+            System.out.printf("Боевая ничья: у всех по %d побед%n", a);
+        } else if (a == b) {
+            System.out.printf("У нас два победителя это %s и %s у них по %d победе%n",
+                    firstPlayer.getName(), secondPlayer.getName(), firstPlayer.getVictories());
+        } else if (a == c) {
+            System.out.printf("У нас два победителя это %s и %s у них по %d победе%n",
+                    firstPlayer.getName(), thirdPlayer.getName(), firstPlayer.getVictories());
+        } else {
+            System.out.printf("У нас два победителя это %s и %s у них по %d победе%n",
+                    secondPlayer.getName(), thirdPlayer.getName(), secondPlayer.getVictories());
+        }
     }
 }

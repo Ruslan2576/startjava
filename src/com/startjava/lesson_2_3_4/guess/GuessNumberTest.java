@@ -7,17 +7,16 @@ public class GuessNumberTest {
         Scanner scan = new Scanner(System.in);
         System.out.println("Угадай число в диапазоне [1, 100]");
 
-        // Получаем имя и инициализируем первого игрока
-        System.out.print("Игрок №1 введите своё имя: ");
-        String name = scan.next();
-        Player firstPlayer = new Player(name);
+        Player[] players = new Player[3];
+        for (int i = 0; i < players.length; i++) {
+            System.out.printf("Игрок №%d введите своё имя: ", i + 1);
+            String name = scan.next();
+            players[i] = new Player(name);
+        }
+        // Бросаем жребий
+        Player[] shuffledPlayers = shuffle(players);
+        GuessNumber game = new GuessNumber(shuffledPlayers);
 
-        // Получаем имя и инициализируем второго игрока
-        System.out.print("Игрок №2 введите своё имя: ");
-        name = scan.next();
-        Player secondPlayer = new Player(name);
-
-        GuessNumber game = new GuessNumber(firstPlayer, secondPlayer);
         String choice = "yes";
 
         while (!choice.equals("no")) {
@@ -34,5 +33,15 @@ public class GuessNumberTest {
             System.out.print("Хотите продолжить игру? [yes / no]: ");
             choice = scan.next().toLowerCase();
         }
+    }
+
+    public static Player[] shuffle(Player[] players) {
+        for (int i = players.length; i > 0; i--) {
+            int num = (int) (Math.random() * i);
+            Player tmpPlayer = players[0];
+            players[0] = players[num];
+            players[num] = tmpPlayer;
+        }
+        return players;
     }
 }
