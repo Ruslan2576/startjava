@@ -4,18 +4,12 @@ import java.util.Scanner;
 
 public class GuessNumberTest {
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
         System.out.println("Угадай число в диапазоне [1, 100]");
+        Scanner scan = new Scanner(System.in);
 
-        Player[] players = new Player[3];
-        for (int i = 0; i < players.length; i++) {
-            System.out.printf("Игрок №%d введите своё имя: ", i + 1);
-            String name = scan.next();
-            players[i] = new Player(name);
-        }
         // Бросаем жребий
-        Player[] shuffledPlayers = shuffle(players);
-        GuessNumber game = new GuessNumber(shuffledPlayers);
+
+        GuessNumber game = new GuessNumber(inputPlayers());
 
         String choice = "yes";
 
@@ -27,7 +21,7 @@ public class GuessNumberTest {
                     continue;
                 }
             }
-            // Запуск игры
+
             game.play();
 
             System.out.print("Хотите продолжить игру? [yes / no]: ");
@@ -35,12 +29,12 @@ public class GuessNumberTest {
         }
     }
 
-    public static Player[] shuffle(Player[] players) {
-        for (int i = players.length; i > 0; i--) {
-            int num = (int) (Math.random() * i);
-            Player tmpPlayer = players[0];
-            players[0] = players[num];
-            players[num] = tmpPlayer;
+    public static Player[] inputPlayers() {
+        Scanner scan = new Scanner(System.in);
+        Player[] players = new Player[3];
+        for (int i = 0; i < players.length; i++) {
+            System.out.printf("Игрок №%d введите своё имя: ", i + 1);
+            players[i] = new Player(scan.next());
         }
         return players;
     }

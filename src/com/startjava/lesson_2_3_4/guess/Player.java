@@ -1,5 +1,8 @@
 package com.startjava.lesson_2_3_4.guess;
 
+import static com.startjava.lesson_2_3_4.guess.GuessNumber.MAX_RANGE;
+import static com.startjava.lesson_2_3_4.guess.GuessNumber.MIN_RANGE;
+
 import java.util.Arrays;
 
 public class Player {
@@ -38,7 +41,7 @@ public class Player {
     }
 
     public void addNumber(int number) {
-        if (number > 0 && number < 101) {
+        if (number > MIN_RANGE && number <= MAX_RANGE) {
             numbers[countNumbers++] = number;
         }
     }
@@ -48,7 +51,7 @@ public class Player {
         countNumbers = 0;
     }
 
-    public int getLastElementInNumbers() {
-        return getNumbers()[getNumbers().length - 1];
+    public int getLastNumber() {
+        return numbers[attempts - 2];
     }
 }
