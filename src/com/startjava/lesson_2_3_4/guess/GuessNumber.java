@@ -17,37 +17,41 @@ public class GuessNumber {
 
     public void play() {
         int countRound = 0;
-        Player[] shuffledPlayers = shuffle(players);
+        shuffle(players);
         while (countRound < NUMBER_OF_ROUNDS) {
-            boolean isGuess = false;
+            boolean isGuessed = false;
             System.out.printf("Раунд №%d%n", ++countRound);
             System.out.println("Игра началась! У каждого игрока по 10 попыток");
             int secretNumber = (int) (Math.random() * MAX_RANGE) + 1;
-            while (shuffledPlayers[shuffledPlayers.length - 1].getAttempts() <= MAX_ATTEMPTS && !isGuess) {
-                for (Player player : shuffledPlayers) {
+            while (isAttemptsOver() && !isGuessed) {
+                for (Player player : players) {
                     inputNumber(player);
                     if (checkNumber(player, secretNumber)) {
-                        isGuess = true;
+                        isGuessed = true;
                         break;
                     }
 
                     checkAttempts(player);
                 }
             }
-            printCurrentResult(shuffledPlayers);
-            reset(shuffledPlayers);
+            printRoundResult();
+            reset();
         }
-        printFinalResult(shuffledPlayers);
+        printFinalResult();
     }
 
-    private static Player[] shuffle(Player[] players) {
+    private void shuffle(Player[] players) {
         for (int i = players.length; i > 0; i--) {
-            int num = (int) (Math.random() * i);
+            int randomIndex = (int) (Math.random() * i);
             Player tmpPlayer = players[0];
-            players[0] = players[num];
-            players[num] = tmpPlayer;
+            players[0] = players[randomIndex];
+            players[randomIndex] = tmpPlayer;
         }
-        return players;
+    }
+
+    private boolean isAttemptsOver() {
+        int attemptsCount = players[players.length - 1].getAttempts();
+        return attemptsCount <= MAX_ATTEMPTS;
     }
 
     private void inputNumber(Player player) {
@@ -57,9 +61,7 @@ public class GuessNumber {
 
         do {
             try {
-                if (number < MIN_RANGE || number > MAX_RANGE) {
-                    throw new IOException();
-                }
+                player.addNumber(number);
                 break;
             } catch (IOException ex) {
                 System.out.print("Число должно входить в отрезок [1, 100]\n" +
@@ -67,7 +69,6 @@ public class GuessNumber {
                 number = scan.nextInt();
             }
         } while (true);
-        player.addNumber(number);
         player.setAttempts(player.getAttempts() + 1);
     }
 
@@ -93,45 +94,37 @@ public class GuessNumber {
         }
     }
     
-    private void printCurrentResult(Player[] players) {
+    private void printRoundResult() {
         for (Player player : players) {
             System.out.printf("Все числа введенные %s: ", player.getName());
             System.out.println(Arrays.toString(player.getNumbers()).replaceAll("[\\[\\],]", ""));
         }
     }
 
-    private static void reset(Player[] players) {
+    private void reset() {
         for (Player player : players) {
             player.clear();
             player.setAttempts(1);
         }
     }
 
-    private void printFinalResult(Player[] players) {
-        int a = players[0].getVictories();
-        int b = players[1].getVictories();
-        int c = players[2].getVictories();
+    private void printFinalResult() {
+        Arrays.sort(players, (player1, player2) -> (player1.getVictories() - player2.getVictories()));
 
-        if (a > b && a > c) {
-            System.out.printf("По результатам трёх раундов победу одержал %s, у него %d побед(ы)%n",
-                    players[0].getName(), a);
-        } else if (b > a && b > c) {
-            System.out.printf("По результатам трёх раундов победу одержал %s, у него %d побед(ы)%n",
-                    players[1].getName(), b);
-        } else if (c > a && c > b) {
-            System.out.printf("По результатам трёх раундов победу одержал %s, у него %d побед(ы)%n",
-                    players[2].getName(), c);
-        } else if (a == b && a == c) {
-            System.out.printf("Боевая ничья: у всех по %d побед%n", a);
-        } else if (a == b) {
-            System.out.printf("У нас два победителя это %s и %s у них по %d победе%n",
-                    players[0].getName(), players[1].getName(), players[2].getVictories());
-        } else if (a == c) {
-            System.out.printf("У нас два победителя это %s и %s у них по %d победе%n",
-                    players[0].getName(), players[2].getName(), players[0].getVictories());
-        } else {
-            System.out.printf("У нас два победителя это %s и %s у них по %d победе%n",
-                    players[1].getName(), players[2].getName(), players[1].getVictories());
+        if (players[2].getVictories() > players[1].getVictories()) {
+            System.out.printf("По результатам трёх раундов победил %s у него %d побед(ы)%n",
+                    players[2].getName(), players[2].getVictories());
+            System.out.println("Результаты остальных участников");
+            System.out.println(players[0].getName() + " количество побед: " + players[0].getVictories());
+            System.out.println(players[1].getName() + " количество побед: " + players[1].getVictories());
+        }
+
+        if (players[2].getVictories() == players[1].getVictories() &&
+                players[2].getVictories() == players[0].getVictories()) {
+            System.out.println("По результатам трёх раундов у нас ничья");
+            System.out.println(players[0].getName() + " количество побед: " + players[0].getVictories());
+            System.out.println(players[1].getName() + " количество побед: " + players[1].getVictories());
+            System.out.println(players[2].getName() + " количество побед: " + players[2].getVictories());
         }
     }
 }
