@@ -2,10 +2,11 @@ package com.startjava.lesson_2_3_4.guess;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class GuessNumber {
-    private static final int MAX_ATTEMPTS = 10;
+    public static final int MAX_ATTEMPTS = 10;
     private static final int NUMBER_OF_ROUNDS = 3;
     static final int MAX_RANGE = 100;
     static final int MIN_RANGE = 1;
@@ -17,13 +18,13 @@ public class GuessNumber {
 
     public void play() {
         int countRound = 0;
-        shuffle(players);
+        shuffle();
         while (countRound < NUMBER_OF_ROUNDS) {
             boolean isGuessed = false;
             System.out.printf("Раунд №%d%n", ++countRound);
             System.out.println("Игра началась! У каждого игрока по 10 попыток");
             int secretNumber = (int) (Math.random() * MAX_RANGE) + 1;
-            while (isAttemptsOver() && !isGuessed) {
+            while (hasAttempts() && !isGuessed) {
                 for (Player player : players) {
                     inputNumber(player);
                     if (checkNumber(player, secretNumber)) {
@@ -40,7 +41,7 @@ public class GuessNumber {
         printFinalResult();
     }
 
-    private void shuffle(Player[] players) {
+    private void shuffle() {
         for (int i = players.length; i > 0; i--) {
             int randomIndex = (int) (Math.random() * i);
             Player tmpPlayer = players[0];
@@ -49,7 +50,7 @@ public class GuessNumber {
         }
     }
 
-    private boolean isAttemptsOver() {
+    private boolean hasAttempts() {
         int attemptsCount = players[players.length - 1].getAttempts();
         return attemptsCount <= MAX_ATTEMPTS;
     }
@@ -64,8 +65,7 @@ public class GuessNumber {
                 player.addNumber(number);
                 break;
             } catch (IOException ex) {
-                System.out.print("Число должно входить в отрезок [1, 100]\n" +
-                        "Попробуйте еще раз: ");
+                System.out.println(ex.getMessage());
                 number = scan.nextInt();
             }
         } while (true);
@@ -109,22 +109,22 @@ public class GuessNumber {
     }
 
     private void printFinalResult() {
-        Arrays.sort(players, (player1, player2) -> (player1.getVictories() - player2.getVictories()));
-
-        if (players[2].getVictories() > players[1].getVictories()) {
+        Arrays.sort(players, Comparator.comparingInt(Player::getVictories).reversed());
+        if (players[0].getVictories() > players[1].getVictories()) {
             System.out.printf("По результатам трёх раундов победил %s у него %d побед(ы)%n",
-                    players[2].getName(), players[2].getVictories());
+                    players[0].getName(), players[0].getVictories());
             System.out.println("Результаты остальных участников");
-            System.out.println(players[0].getName() + " количество побед: " + players[0].getVictories());
-            System.out.println(players[1].getName() + " количество побед: " + players[1].getVictories());
+            for (int i = 1; i < players.length; i++) {
+                System.out.println(players[i].getName() + " количество побед: " + players[i].getVictories());
+            }
         }
 
-        if (players[2].getVictories() == players[1].getVictories() &&
-                players[2].getVictories() == players[0].getVictories()) {
+        if (players[0].getVictories() == players[1].getVictories() &&
+                players[0].getVictories() == players[2].getVictories()) {
             System.out.println("По результатам трёх раундов у нас ничья");
-            System.out.println(players[0].getName() + " количество побед: " + players[0].getVictories());
-            System.out.println(players[1].getName() + " количество побед: " + players[1].getVictories());
-            System.out.println(players[2].getName() + " количество побед: " + players[2].getVictories());
+            for (Player player : players) {
+                System.out.println(player.getName() + " количество побед: " + player.getVictories());
+            }
         }
     }
 }
