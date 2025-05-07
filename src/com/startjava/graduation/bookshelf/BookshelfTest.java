@@ -1,6 +1,6 @@
 package com.startjava.graduation.bookshelf;
 
-import static com.startjava.graduation.bookshelf.Bookshelf.LEN_ARRAY;
+import static com.startjava.graduation.bookshelf.Bookshelf.BOOKSHELF_SIZE;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,6 +10,7 @@ public class BookshelfTest {
     private static final int MAX_CHOICE_MENU = 6;
     private static final int MIN_CHOICE_MENU = 1;
     private static final int SPEED_PRINTING = 100;
+    private static final int SHELF_LEN = 50;
 
     private static final String MENU = """
             1.save
@@ -19,52 +20,20 @@ public class BookshelfTest {
             5.show all books
             6.exit
             """;
-    private static final Scanner SCAN = new Scanner(System.in);
-    private static final Bookshelf BOOKSHELF = new Bookshelf();
+    private static Scanner scan;
+    private static Bookshelf bookshelf;
+    private static Menu action;
 
     public static void main(String[] args) throws InterruptedException {
+        scan = new Scanner(System.in);
+        bookshelf = new Bookshelf();
         printGreeting();
-        Book book;
-        String title;
-        Menu action = null;
         while (action != Menu.EXIT) {
             action = menu();
-            switch (action) {
-                case SAVE -> {
-                    book = createBook();
-                    if (book != null) {
-                        BOOKSHELF.save(book);
-                    }
-                }
-                case FIND -> {
-                    title = inputBookTitle();
-                    book = BOOKSHELF.find(title);
-                    if (book != null) {
-                        System.out.println("Книга, которую вы искали");
-                        System.out.println(book);
-                    }
-                }
-                case DELETE -> {
-                    title = inputBookTitle();
-                    book = BOOKSHELF.find(title);
-                    if (book != null) {
-                        BOOKSHELF.delete(BOOKSHELF.getDeleteIndex());
-                    }
-                }
-                case CLEAR -> {
-                    BOOKSHELF.clear();
-                    SCAN.nextLine();
-                }
-                case SHOW_ALL_BOOKS -> {
-                    BOOKSHELF.showAllBooks();
-                    SCAN.nextLine();
-                }
-                default -> action = Menu.EXIT;
-            }
-
+            executeMenuItem();
             if (action != Menu.EXIT) {
                 System.out.print("Для продолжения работы нажмите клавишу <Enter>");
-                SCAN.nextLine();
+                scan.nextLine();
             }
         }
     }
@@ -77,17 +46,57 @@ public class BookshelfTest {
         System.out.println();
     }
 
+    private static void executeMenuItem() {
+        Book book;
+        String title;
+        switch (action) {
+            case SAVE -> {
+                book = createBook();
+                if (book != null) {
+                    bookshelf.save(book);
+                    System.out.println("Книга добавлена в шкаф");
+                }
+            }
+            case FIND -> {
+                title = inputBookTitle();
+                book = bookshelf.find(title);
+                if (book != null) {
+                    System.out.println("Книга, которую вы искали");
+                    System.out.println(book);
+                }
+            }
+            case DELETE -> {
+                title = inputBookTitle();
+                book = bookshelf.find(title);
+                if (book != null) {
+                    bookshelf.delete(title);
+                    System.out.println("Книга удалена.");
+                }
+            }
+            case CLEAR -> {
+                bookshelf.clear();
+                scan.nextLine();
+                System.out.println("Все книги удалены.");
+            }
+            case SHOW_ALL_BOOKS -> {
+                showAllBooks();
+                scan.nextLine();
+            }
+            default -> action = Menu.EXIT;
+        }
+    }
+
     private static Menu menu() {
-        if (BOOKSHELF.getBooksCount() == 0) {
+        if (bookshelf.getBooksCount() == 0) {
             System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу.");
         }
 
         int choice;
         System.out.print(MENU);
-        System.out.print("Выберите необходимое действие, введя его номер: ");
+        System.out.print("Выберите нужный пункт меню, введя его номер: ");
         do {
             try {
-                choice = SCAN.nextInt();
+                choice = scan.nextInt();
                 if (choice < MIN_CHOICE_MENU || choice > MAX_CHOICE_MENU) {
                     throw new InputMismatchException();
                 }
@@ -102,43 +111,52 @@ public class BookshelfTest {
                 };
             } catch (InputMismatchException e) {
                 System.out.print("Ошибка: введите номер из списка: ");
-                SCAN.nextLine();
+                scan.nextLine();
             }
         } while (true);
     }
 
     private static Book createBook() {
-        if (BOOKSHELF.getBooksCount() == LEN_ARRAY) {
+        if (bookshelf.getBooksCount() == BOOKSHELF_SIZE) {
             System.out.println("В шкафу нет места");
+            scan.nextLine();
             return null;
         }
 
-        SCAN.nextLine();
+        scan.nextLine();
         System.out.print("Введите имя автора: ");
-        String author = SCAN.nextLine();
+        String author = scan.nextLine();
         System.out.print("Введите название книги: ");
-        String title = SCAN.nextLine();
+        String title = scan.nextLine();
         int year;
         while (true) {
             try {
                 System.out.print("Введите год издания книги: ");
-                year = SCAN.nextInt();
-                SCAN.nextLine();
+                year = scan.nextInt();
+                scan.nextLine();
                 break;
             } catch (InputMismatchException e) {
-                SCAN.nextLine();
+                scan.nextLine();
             }
         }
         return new Book(author, title, year);
     }
 
     private static String inputBookTitle() {
-        SCAN.nextLine();
+        scan.nextLine();
         System.out.print("Введите название книги: ");
-        return SCAN.nextLine();
+        return scan.nextLine();
+    }
+
+    public static void showAllBooks() {
+        int booksCount = bookshelf.getBooksCount();
+        System.out.printf("В шкафу книг - %d, свободно полок - %d%n",
+                booksCount, BOOKSHELF_SIZE - booksCount);
+        for (int i = 0; i < booksCount; i++) {
+            System.out.println("|" + bookshelf.getBooks()[i] +
+                    " ".repeat(SHELF_LEN - bookshelf.getBooks()[i].toString().length()) + "|");
+            System.out.println("|" + "-".repeat(SHELF_LEN) + "|");
+        }
     }
 }
 
-enum Menu {
-    SAVE, FIND, DELETE, CLEAR, SHOW_ALL_BOOKS, EXIT
-}

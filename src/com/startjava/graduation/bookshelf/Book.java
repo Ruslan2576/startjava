@@ -11,20 +11,12 @@ public class Book {
         this.year = year;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
     public String getTitle() {
         return title;
     }
 
-    public int getYear() {
-        return year;
-    }
-
     @Override
     public String toString() {
-        return getAuthor() + ", " + getTitle() + ", " + getYear();
+        return author + ", " + title + ", " + year;
     }
 }
