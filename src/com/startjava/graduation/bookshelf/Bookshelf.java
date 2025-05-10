@@ -3,19 +3,20 @@ package com.startjava.graduation.bookshelf;
 import java.util.Arrays;
 
 public class Bookshelf {
-    public static final int BOOKSHELF_SIZE = 10;
-    private final Book[] books = new Book[BOOKSHELF_SIZE];
+    private final Book[] books = new Book[CAPACITY];
+    public static final int CAPACITY = 10;
+    private static final int SHELF_LEN = 50;
     private int booksCount;
-
-    public Book[] getBooks() {
-        return books;
-    }
 
     public int getBooksCount() {
         return booksCount;
     }
 
     public void save(Book book) {
+        if (booksCount == CAPACITY) {
+            System.out.println("В шкафу нет места");
+            return;
+        }
         books[booksCount++] = book;
     }
 
@@ -30,15 +31,24 @@ public class Bookshelf {
     }
 
     public void delete(String title) {
-        int index = 0;
         for (int i = 0; i < booksCount; i++) {
             if (books[i].getTitle().equals(title)) {
-                index = i;
+                System.arraycopy(books, i + 1, books, i, booksCount - i - 1);
             }
         }
-        System.arraycopy(books, index + 1, books, index, BOOKSHELF_SIZE - (index + 1));
-        books[BOOKSHELF_SIZE - 1] = null;
+        books[booksCount - 1] = null;
         booksCount--;
+    }
+
+    public void showAllBooks() {
+        System.out.printf("%nВ шкафу книг - %d, свободно полок - %d%n%n",
+                booksCount, CAPACITY - booksCount);
+        for (Book book : books) {
+            if (book != null) {
+                System.out.println("|" + book + " ".repeat(SHELF_LEN - book.toString().length()) + "|");
+                System.out.println("|" + "-".repeat(SHELF_LEN) + "|");
+            }
+        }
     }
 
     public void clear() {
