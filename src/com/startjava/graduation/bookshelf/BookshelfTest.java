@@ -2,6 +2,8 @@ package com.startjava.graduation.bookshelf;
 
 import static com.startjava.graduation.bookshelf.Bookshelf.CAPACITY;
 
+import java.io.IOException;
+import java.time.Year;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -14,26 +16,30 @@ public class BookshelfTest {
             4.clear
             5.exit
             """;
-    private static final int MAX_CHOICE_MENU = 5;
-    private static final int MIN_CHOICE_MENU = 1;
     private static final int SHELF_LEN = 50;
     private static Scanner scan;
     private static Bookshelf bookshelf;
-    private static Menu action = Menu.EXIT;
 
     public static void main(String[] args) throws InterruptedException {
         scan = new Scanner(System.in);
         bookshelf = new Bookshelf();
+        Menu action = Menu.EXIT;
         printGreeting();
-        while ((action = makeChoice()) != Menu.EXIT) {
+        do {
+            if (bookshelf.getBooksCount() == 0) {
+                System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу.");
+            }
+            System.out.print(MENU);
+
             try {
-                executeMenuItem();
+                action = makeChoice();
+                executeMenuItem(action);
                 showAllBooks();
-                waitingInputEnter();
+                waitEnter();
             } catch (InputMismatchException ex) {
                 System.out.println(ex.getMessage());
             }
-        }
+        } while (action != Menu.EXIT);
     }
 
     private static void printGreeting() throws InterruptedException {
@@ -45,50 +51,34 @@ public class BookshelfTest {
     }
 
     private static Menu makeChoice() {
-        showMenu();
         System.out.print("Выберите нужный пункт меню, введя его номер: ");
         do {
             try {
                 int choice = scan.nextInt();
-                if (choice < MIN_CHOICE_MENU || choice > MAX_CHOICE_MENU) {
-                    throw new InputMismatchException();
-                }
-                return action.getPoint(choice);
+                return Menu.getPoint(choice);
             } catch (InputMismatchException e) {
-                System.out.print("Ошибка: введите номер из списка: ");
+                System.out.print("Введите число, а не букву: ");
                 scan.nextLine();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
             }
         } while (true);
     }
 
-    private static void showMenu() {
-        if (bookshelf.getBooksCount() == 0) {
-            System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу.");
-        }
-        System.out.print(MENU);
-    }
-
-    private static void executeMenuItem() {
+    private static void executeMenuItem(Menu action) {
         switch (action) {
             case SAVE -> save();
             case FIND -> find();
             case DELETE -> delete();
             case CLEAR -> clear();
-            default -> throw new InputMismatchException("Ошибка ввода");
+            default -> throw new InputMismatchException("Exit");
         }
     }
 
     private static void save() {
-        // Этот if нужен для того, чтобы сообщить пользователю о том,
-        // что на полке больше нет места, до того как он введёт информацию о книге.
-        if (bookshelf.getBooksCount() >= CAPACITY) {
-            bookshelf.save(new Book(null, null, 0));
-            scan.nextLine();
-            return;
-        }
         Book book = createBook();
-        System.out.println("Книга добавлена в шкаф");
         bookshelf.save(book);
+        System.out.println("Книга добавлена в шкаф");
     }
 
     private static Book createBook() {
@@ -96,11 +86,11 @@ public class BookshelfTest {
         System.out.print("Введите имя автора: ");
         String author = scan.nextLine();
         String title = inputBookTitle();
-        int year;
+        Year year;
         while (true) {
             try {
                 System.out.print("Введите год издания книги: ");
-                year = scan.nextInt();
+                year = Year.of(scan.nextInt());
                 scan.nextLine();
                 break;
             } catch (InputMismatchException e) {
@@ -115,8 +105,7 @@ public class BookshelfTest {
         String title = inputBookTitle();
         Book book = bookshelf.find(title);
         if (book != null) {
-            System.out.println("Книга, которую вы искали");
-            System.out.println(book);
+            System.out.println("Книга, которую вы искали\n" + book);
         }
     }
 
@@ -130,15 +119,15 @@ public class BookshelfTest {
         }
     }
 
+    private static String inputBookTitle() {
+        System.out.print("Введите название книги: ");
+        return scan.nextLine();
+    }
+
     private static void clear() {
         bookshelf.clear();
         scan.nextLine();
         System.out.println("Все книги удалены.");
-    }
-
-    private static String inputBookTitle() {
-        System.out.print("Введите название книги: ");
-        return scan.nextLine();
     }
 
     public static void showAllBooks() {
@@ -151,7 +140,7 @@ public class BookshelfTest {
         }
     }
 
-    private static void waitingInputEnter() {
+    private static void waitEnter() {
         do {
             System.out.print("Для продолжения работы нажмите клавишу <Enter>");
         } while (!scan.nextLine().isEmpty());

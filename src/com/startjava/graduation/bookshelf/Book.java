@@ -1,11 +1,13 @@
 package com.startjava.graduation.bookshelf;
 
+import java.time.Year;
+
 public class Book {
     private final String author;
     private final String title;
-    private final int year;
+    private final Year year;
 
-    public Book(String author, String title, int year) {
+    public Book(String author, String title, Year year) {
         this.author = author;
         this.title = title;
         this.year = year;
