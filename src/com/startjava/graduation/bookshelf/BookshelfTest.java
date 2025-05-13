@@ -26,11 +26,7 @@ public class BookshelfTest {
         Menu action = Menu.EXIT;
         printGreeting();
         do {
-            if (bookshelf.getBooksCount() == 0) {
-                System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу.");
-            }
-            System.out.print(MENU);
-
+            showMenu();
             try {
                 action = makeChoice();
                 executeMenuItem(action);
@@ -48,6 +44,15 @@ public class BookshelfTest {
             Thread.sleep(100);
         }
         System.out.println();
+    }
+
+    private static void showMenu() {
+        if (bookshelf.getBooksCount() == 0) {
+            System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу.");
+            System.out.println(MENU);
+        } else {
+            System.out.print(MENU);
+        }
     }
 
     private static Menu makeChoice() {
