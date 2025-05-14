@@ -2,20 +2,15 @@ package com.startjava.graduation.bookshelf;
 
 import static com.startjava.graduation.bookshelf.Bookshelf.CAPACITY;
 
-import java.io.IOException;
+import com.startjava.graduation.bookshelf.exception.CanNotRemoveSuchABook;
+import com.startjava.graduation.bookshelf.exception.InvalidInputException;
+import com.startjava.graduation.bookshelf.exception.NoSuchABookException;
 import java.time.Year;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BookshelfTest {
     private static final String GREETING = "Привет, это книжный шкаф. Тут ты можешь хранить свои книги.";
-    private static final String MENU = """
-            1.save
-            2.find
-            3.delete
-            4.clear
-            5.exit
-            """;
     private static final int SHELF_LEN = 50;
     private static Scanner scan;
     private static Bookshelf bookshelf;
@@ -23,7 +18,7 @@ public class BookshelfTest {
     public static void main(String[] args) throws InterruptedException {
         scan = new Scanner(System.in);
         bookshelf = new Bookshelf();
-        Menu action = Menu.EXIT;
+        MenuItem action = MenuItem.EXIT;
         printGreeting();
         do {
             showMenu();
@@ -32,10 +27,11 @@ public class BookshelfTest {
                 executeMenuItem(action);
                 showAllBooks();
                 waitEnter();
-            } catch (InputMismatchException ex) {
+            } catch (InputMismatchException | NoSuchABookException | CanNotRemoveSuchABook ex) {
                 System.out.println(ex.getMessage());
+                waitEnter();
             }
-        } while (action != Menu.EXIT);
+        } while (action != MenuItem.EXIT);
     }
 
     private static void printGreeting() throws InterruptedException {
@@ -47,32 +43,40 @@ public class BookshelfTest {
     }
 
     private static void showMenu() {
+        MenuItem[] menuItems = MenuItem.values();
         if (bookshelf.getBooksCount() == 0) {
             System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу.");
-            System.out.println(MENU);
+            System.out.println(1 + "." + menuItems[0].getMessage());
+            System.out.println(5 + "." + menuItems[4].getMessage());
+        } else if (bookshelf.getBooksCount() == CAPACITY) {
+            for (int i = 1; i < menuItems.length; i++) {
+                System.out.println(i + 1 + "." + menuItems[i].getMessage());
+            }
         } else {
-            System.out.print(MENU);
+            for (int i = 0; i < menuItems.length; i++) {
+                System.out.println(i + 1 + "." + menuItems[i].getMessage());
+            }
         }
     }
 
-    private static Menu makeChoice() {
+    private static MenuItem makeChoice() {
         System.out.print("Выберите нужный пункт меню, введя его номер: ");
         do {
             try {
                 int choice = scan.nextInt();
-                return Menu.getPoint(choice);
+                return MenuItem.getPoint(choice);
             } catch (InputMismatchException e) {
                 System.out.print("Введите число, а не букву: ");
                 scan.nextLine();
-            } catch (IOException e) {
+            } catch (InvalidInputException e) {
                 System.out.print(e.getMessage());
             }
         } while (true);
     }
 
-    private static void executeMenuItem(Menu action) {
+    private static void executeMenuItem(MenuItem action) throws NoSuchABookException, CanNotRemoveSuchABook {
         switch (action) {
-            case SAVE -> save();
+            case ADD -> save();
             case FIND -> find();
             case DELETE -> delete();
             case CLEAR -> clear();
@@ -82,7 +86,7 @@ public class BookshelfTest {
 
     private static void save() {
         Book book = createBook();
-        bookshelf.save(book);
+        bookshelf.add(book);
         System.out.println("Книга добавлена в шкаф");
     }
 
@@ -105,7 +109,7 @@ public class BookshelfTest {
         return new Book(author, title, year);
     }
 
-    private static void find() {
+    private static void find() throws NoSuchABookException {
         scan.nextLine();
         String title = inputBookTitle();
         Book book = bookshelf.find(title);
@@ -114,14 +118,12 @@ public class BookshelfTest {
         }
     }
 
-    private static void delete() {
+    private static void delete() throws NoSuchABookException, CanNotRemoveSuchABook {
         scan.nextLine();
         String title = inputBookTitle();
         Book book = bookshelf.find(title);
-        if (book != null) {
-            bookshelf.delete(title);
-            System.out.println("Книга удалена.");
-        }
+        bookshelf.remove(title);
+        System.out.println("Книга удалена.");
     }
 
     private static String inputBookTitle() {

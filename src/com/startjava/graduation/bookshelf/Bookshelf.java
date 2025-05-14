@@ -1,5 +1,7 @@
 package com.startjava.graduation.bookshelf;
 
+import com.startjava.graduation.bookshelf.exception.CanNotRemoveSuchABook;
+import com.startjava.graduation.bookshelf.exception.NoSuchABookException;
 import java.util.Arrays;
 
 public class Bookshelf {
@@ -15,7 +17,7 @@ public class Bookshelf {
         return booksCount;
     }
 
-    public void save(Book book) {
+    public void add(Book book) {
         if (booksCount >= CAPACITY) {
             System.out.println("В шкафу нет места");
             return;
@@ -23,17 +25,19 @@ public class Bookshelf {
         books[booksCount++] = book;
     }
 
-    public Book find(String title) {
+    public Book find(String title) throws NoSuchABookException {
         for (int i = 0; i < booksCount; i++) {
             if (books[i].getTitle().equals(title)) {
                 return books[i];
             }
         }
-        System.out.println("Такой книги у меня нет");
-        return null;
+        throw new NoSuchABookException("Такой книги у меня нет");
     }
 
-    public void delete(String title) {
+    public void remove(String title) throws CanNotRemoveSuchABook {
+        if (title == null) {
+            throw new CanNotRemoveSuchABook("Не могу удалить такую книгу, её нет на полке");
+        }
         for (int i = 0; i < booksCount; i++) {
             if (books[i].getTitle().equals(title)) {
                 System.arraycopy(books, i + 1, books, i, booksCount - i - 1);
