@@ -25,7 +25,7 @@ public class Bookshelf {
         books[booksCount++] = book;
     }
 
-    public Book find(String title) throws NoSuchBookException {
+    public Book find(String title) {
         for (int i = 0; i < booksCount; i++) {
             if (books[i].getTitle().equals(title)) {
                 return books[i];
@@ -34,7 +34,7 @@ public class Bookshelf {
         throw new NoSuchBookException("Такой книги у меня нет");
     }
 
-    public void remove(String title) throws CanNotRemoveSuchBook {
+    public void remove(String title) {
         if (title == null) {
             throw new CanNotRemoveSuchBook("Не могу удалить такую книгу, её нет на полке");
         }

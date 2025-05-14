@@ -43,19 +43,22 @@ public class BookshelfTest {
     }
 
     private static void showMenu() {
-        MenuItem[] menuItems = MenuItem.values();
         if (bookshelf.getBooksCount() == 0) {
             System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу.");
-            System.out.println(1 + "." + menuItems[0].getMessage());
-            System.out.println(5 + "." + menuItems[4].getMessage());
+        }
+        MenuItem[] menuItems = createMenu();
+        for (MenuItem menuItem : menuItems) {
+            System.out.println(menuItem.ordinal() + 1 + "." + menuItem.getLabel());
+        }
+    }
+
+    private static MenuItem[] createMenu() {
+        if (bookshelf.getBooksCount() == 0) {
+            return new MenuItem[]{MenuItem.ADD, MenuItem.EXIT};
         } else if (bookshelf.getBooksCount() == CAPACITY) {
-            for (int i = 1; i < menuItems.length; i++) {
-                System.out.println(i + 1 + "." + menuItems[i].getMessage());
-            }
+            return new MenuItem[]{MenuItem.FIND, MenuItem.DELETE, MenuItem.CLEAR, MenuItem.EXIT};
         } else {
-            for (int i = 0; i < menuItems.length; i++) {
-                System.out.println(i + 1 + "." + menuItems[i].getMessage());
-            }
+            return MenuItem.values();
         }
     }
 
@@ -63,8 +66,8 @@ public class BookshelfTest {
         System.out.print("Выберите нужный пункт меню, введя его номер: ");
         do {
             try {
-                int choice = scan.nextInt();
-                return MenuItem.getPoint(choice);
+                int id = scan.nextInt();
+                return MenuItem.getPoint(id);
             } catch (InputMismatchException e) {
                 System.out.print("Введите число, а не букву: ");
                 scan.nextLine();
@@ -74,7 +77,7 @@ public class BookshelfTest {
         } while (true);
     }
 
-    private static void executeMenuItem(MenuItem action) throws NoSuchBookException, CanNotRemoveSuchBook {
+    private static void executeMenuItem(MenuItem action) {
         switch (action) {
             case ADD -> save();
             case FIND -> find();
@@ -109,7 +112,7 @@ public class BookshelfTest {
         return new Book(author, title, year);
     }
 
-    private static void find() throws NoSuchBookException {
+    private static void find() {
         scan.nextLine();
         String title = inputBookTitle();
         Book book = bookshelf.find(title);
@@ -118,7 +121,7 @@ public class BookshelfTest {
         }
     }
 
-    private static void delete() throws NoSuchBookException, CanNotRemoveSuchBook {
+    private static void delete() {
         scan.nextLine();
         String title = inputBookTitle();
         bookshelf.find(title);

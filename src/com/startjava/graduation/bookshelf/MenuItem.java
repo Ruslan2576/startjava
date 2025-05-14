@@ -9,14 +9,14 @@ public enum MenuItem {
     CLEAR("Удалить все книги"),
     EXIT("Выход");
 
-    private final String message;
+    private final String label;
 
-    MenuItem(String message) {
-        this.message = message;
+    MenuItem(String label) {
+        this.label = label;
     }
 
-    public String getMessage() {
-        return message;
+    public String getLabel() {
+        return label;
     }
 
     public static MenuItem getPoint(int choice) throws InvalidInputException {
