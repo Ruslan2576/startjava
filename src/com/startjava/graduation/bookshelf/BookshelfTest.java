@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 public class BookshelfTest {
     private static final String GREETING = "Привет, это книжный шкаф. Тут ты можешь хранить свои книги.";
-    private static final int SHELF_LEN = 50;
     private static Scanner scan;
     private static Bookshelf bookshelf;
 
@@ -150,10 +149,23 @@ public class BookshelfTest {
         int booksCount = bookshelf.getBooksCount();
         Book[] books = bookshelf.getBooks();
         System.out.printf("%nВ шкафу книг - %d, свободно полок - %d%n%n", booksCount, CAPACITY - booksCount);
+
+        int max = getShelfLen();
         for (Book book : books) {
-            System.out.println("|" + book + " ".repeat(SHELF_LEN - book.toString().length()) + "|");
-            System.out.println("|" + "-".repeat(SHELF_LEN) + "|");
+            System.out.println("|" + book + " ".repeat(max - book.toString().length()) + "|");
+            System.out.println("|" + "-".repeat(max) + "|");
         }
+    }
+
+    private static int getShelfLen() {
+        Book[] books = bookshelf.getBooks();
+        int max = 0;
+        for (Book book : books) {
+            if (book.toString().length() > max) {
+                max = book.toString().length();
+            }
+        }
+        return max;
     }
 
     private static void waitEnter() {
