@@ -54,7 +54,7 @@ public class BookshelfTest {
         }
     }
 
-    public static MenuItem[] createMenu() {
+    private static MenuItem[] createMenu() {
         if (bookshelf.getBooksCount() == 0) {
             return new MenuItem[]{MenuItem.ADD, MenuItem.EXIT};
         }
@@ -71,7 +71,9 @@ public class BookshelfTest {
         do {
             try {
                 int id = scan.nextInt();
-                return MenuItem.getPoint(id);
+                if (MenuItem.getPoint(id)) {
+                    return createMenu()[id - 1];
+                }
             } catch (InputMismatchException e) {
                 System.out.print("Введите число, а не букву: ");
                 scan.nextLine();
