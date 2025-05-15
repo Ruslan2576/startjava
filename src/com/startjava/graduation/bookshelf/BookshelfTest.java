@@ -19,7 +19,7 @@ public class BookshelfTest {
         scan = new Scanner(System.in);
         bookshelf = new Bookshelf();
         MenuItem action = MenuItem.EXIT;
-        printGreeting();
+        // printGreeting();
         do {
             showMenu();
             try {
@@ -27,9 +27,11 @@ public class BookshelfTest {
                 executeMenuItem(action);
                 showAllBooks();
                 waitEnter();
-            } catch (InputMismatchException | NoSuchBookException | CanNotRemoveSuchBook ex) {
+            } catch (NoSuchBookException | CanNotRemoveSuchBook ex) {
                 System.out.println(ex.getMessage());
                 waitEnter();
+            } catch (InputMismatchException ex) {
+                System.out.println(ex.getMessage());
             }
         } while (action != MenuItem.EXIT);
     }
@@ -47,19 +49,21 @@ public class BookshelfTest {
             System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу.");
         }
         MenuItem[] menuItems = createMenu();
-        for (MenuItem menuItem : menuItems) {
-            System.out.println(menuItem.ordinal() + 1 + "." + menuItem.getLabel());
+        for (int i = 0; i < menuItems.length; i++) {
+            System.out.println(i + 1 + "." + menuItems[i].getLabel());
         }
     }
 
-    private static MenuItem[] createMenu() {
+    public static MenuItem[] createMenu() {
         if (bookshelf.getBooksCount() == 0) {
             return new MenuItem[]{MenuItem.ADD, MenuItem.EXIT};
-        } else if (bookshelf.getBooksCount() == CAPACITY) {
-            return new MenuItem[]{MenuItem.FIND, MenuItem.DELETE, MenuItem.CLEAR, MenuItem.EXIT};
-        } else {
-            return MenuItem.values();
         }
+
+        if (bookshelf.getBooksCount() == CAPACITY) {
+            return new MenuItem[]{MenuItem.FIND, MenuItem.DELETE, MenuItem.CLEAR, MenuItem.EXIT};
+        }
+
+        return MenuItem.values();
     }
 
     private static MenuItem makeChoice() {

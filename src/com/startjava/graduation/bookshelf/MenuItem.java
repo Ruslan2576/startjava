@@ -19,9 +19,10 @@ public enum MenuItem {
         return label;
     }
 
-    public static MenuItem getPoint(int choice) throws InvalidInputException {
-        if (choice > 0 && choice <= MenuItem.values().length) {
-            return MenuItem.values()[choice - 1];
+    public static MenuItem getPoint(int choice) {
+        MenuItem[] menuItems = BookshelfTest.createMenu();
+        if (choice > 0 && choice <= menuItems.length) {
+            return menuItems[choice - 1];
         }
 
         throw new InvalidInputException("Ошибка: введите пункт из предложенного в меню: ");
