@@ -19,7 +19,7 @@ public class BookshelfTest {
         scan = new Scanner(System.in);
         bookshelf = new Bookshelf();
         MenuItem action = MenuItem.EXIT;
-        // printGreeting();
+        printGreeting();
         do {
             showMenu();
             try {
