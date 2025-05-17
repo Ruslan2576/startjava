@@ -150,22 +150,11 @@ public class BookshelfTest {
         Book[] books = bookshelf.getBooks();
         System.out.printf("%nВ шкафу книг - %d, свободно полок - %d%n%n", booksCount, CAPACITY - booksCount);
 
-        int max = getShelfLen();
+        int shelfLen = bookshelf.getShelfLen();
         for (Book book : books) {
-            System.out.println("|" + book + " ".repeat(max - book.toString().length()) + "|");
-            System.out.println("|" + "-".repeat(max) + "|");
+            System.out.println("|" + book + " ".repeat(shelfLen - book.toString().length()) + "|");
+            System.out.println("|" + "-".repeat(shelfLen) + "|");
         }
-    }
-
-    private static int getShelfLen() {
-        Book[] books = bookshelf.getBooks();
-        int max = 0;
-        for (Book book : books) {
-            if (book.toString().length() > max) {
-                max = book.toString().length();
-            }
-        }
-        return max;
     }
 
     private static void waitEnter() {

@@ -8,6 +8,7 @@ public class Bookshelf {
     public static final int CAPACITY = 10;
     private final Book[] books = new Book[CAPACITY];
     private int booksCount;
+    private int shelfLen;
 
     public Book[] getBooks() {
         return Arrays.copyOf(books, booksCount);
@@ -17,12 +18,17 @@ public class Bookshelf {
         return booksCount;
     }
 
+    public int getShelfLen() {
+        return shelfLen;
+    }
+
     public void add(Book book) {
         if (booksCount >= CAPACITY) {
             System.out.println("В шкафу нет места");
             return;
         }
         books[booksCount++] = book;
+        updateShelfLen();
     }
 
     public Book find(String title) {
@@ -46,10 +52,20 @@ public class Bookshelf {
                 break;
             }
         }
+        updateShelfLen();
     }
 
     public void clear() {
         Arrays.fill(books, 0, booksCount, null);
         booksCount = 0;
+    }
+
+    private void updateShelfLen() {
+        shelfLen = 0;
+        for (Book book : getBooks()) {
+            if (book.toString().length() > shelfLen) {
+                shelfLen = book.toString().length();
+            }
+        }
     }
 }
