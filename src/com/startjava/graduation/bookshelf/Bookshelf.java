@@ -28,7 +28,10 @@ public class Bookshelf {
             return;
         }
         books[booksCount++] = book;
-        updateShelfLen();
+
+        if (book.toString().length() > shelfLen) {
+            updateShelfLen();
+        }
     }
 
     public Book find(String title) {
@@ -44,15 +47,21 @@ public class Bookshelf {
         if (title == null) {
             throw new CanNotRemoveSuchBook("Не могу удалить такую книгу, её нет на полке");
         }
+        Book book = null;
         for (int i = 0; i < booksCount; i++) {
             if (books[i].getTitle().equals(title)) {
+                book = books[i];
                 System.arraycopy(books, i + 1, books, i, booksCount - i - 1);
                 books[booksCount - 1] = null;
                 booksCount--;
                 break;
             }
         }
-        updateShelfLen();
+
+        assert book != null;
+        if (book.toString().length() == shelfLen) {
+            updateShelfLen();
+        }
     }
 
     public void clear() {
