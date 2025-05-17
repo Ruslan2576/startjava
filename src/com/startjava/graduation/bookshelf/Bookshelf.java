@@ -58,8 +58,7 @@ public class Bookshelf {
             }
         }
 
-        assert book != null;
-        if (book.toString().length() == shelfLen) {
+        if (book != null && book.toString().length() == shelfLen) {
             updateShelfLen();
         }
     }
