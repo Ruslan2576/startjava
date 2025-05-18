@@ -15,19 +15,18 @@ public class BookshelfTest {
     public static void main(String[] args) throws InterruptedException {
         scan = new Scanner(System.in);
         bookshelf = new Bookshelf();
-        MenuItem action = MenuItem.EXIT;
+        MenuItem action;
         printGreeting();
-        do {
+        while (true) {
             showMenu();
-            try {
-                action = makeChoice();
-                executeMenuItem(action);
-                showAllBooks();
-                waitEnter();
-            } catch (InputMismatchException ex) {
-                System.out.println(ex.getMessage());
+            action = makeChoice();
+            executeMenuItem(action);
+            if (action == MenuItem.EXIT) {
+                break;
             }
-        } while (action != MenuItem.EXIT);
+            showAllBooks();
+            waitEnter();
+        }
     }
 
     private static void printGreeting() throws InterruptedException {
@@ -78,12 +77,16 @@ public class BookshelfTest {
     }
 
     private static void executeMenuItem(MenuItem action) {
-        switch (action) {
-            case ADD -> save();
-            case FIND -> find();
-            case DELETE -> delete();
-            case CLEAR -> clear();
-            default -> throw new InputMismatchException("Exit");
+        try {
+            switch (action) {
+                case ADD -> save();
+                case FIND -> find();
+                case DELETE -> delete();
+                case CLEAR -> clear();
+                default -> throw new InputMismatchException("Exit");
+            }
+        } catch (InputMismatchException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
