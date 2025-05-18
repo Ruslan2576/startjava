@@ -1,7 +1,7 @@
 package com.startjava.graduation.bookshelf;
 
+import com.startjava.graduation.bookshelf.exception.CanNotAddThisBookException;
 import com.startjava.graduation.bookshelf.exception.CanNotRemoveSuchBook;
-import com.startjava.graduation.bookshelf.exception.NoSuchBookException;
 import java.util.Arrays;
 
 public class Bookshelf {
@@ -23,14 +23,16 @@ public class Bookshelf {
     }
 
     public void add(Book book) {
-        if (booksCount >= CAPACITY) {
-            System.out.println("В шкафу нет места");
-            return;
-        }
-        books[booksCount++] = book;
+        try {
+            if (booksCount < CAPACITY) {
+                books[booksCount++] = book;
+            }
 
-        if (book.toString().length() > shelfLen) {
-            updateShelfLen();
+            if (getBookLen(book) > shelfLen) {
+                updateShelfLen();
+            }
+        } catch (CanNotAddThisBookException ex) {
+            System.out.println("В шкафу нет места");
         }
     }
 
@@ -40,26 +42,28 @@ public class Bookshelf {
                 return books[i];
             }
         }
-        throw new NoSuchBookException("Такой книги у меня нет");
+        return null;
     }
 
-    public void remove(String title) {
-        if (title == null) {
-            throw new CanNotRemoveSuchBook("Не могу удалить такую книгу, её нет на полке");
-        }
-        Book book = null;
-        for (int i = 0; i < booksCount; i++) {
-            if (books[i].getTitle().equals(title)) {
-                book = books[i];
-                System.arraycopy(books, i + 1, books, i, booksCount - i - 1);
-                books[booksCount - 1] = null;
-                booksCount--;
-                break;
+    public void remove(Book book) {
+        try {
+            if (book == null) {
+                throw new CanNotRemoveSuchBook("Не могу удалить такую книгу, её нет в шкафу");
             }
-        }
 
-        if (book != null && book.toString().length() == shelfLen) {
-            updateShelfLen();
+            for (int i = 0; i < booksCount; i++) {
+                if (books[i].getTitle().equals(book.getTitle())) {
+                    System.arraycopy(books, i + 1, books, i, booksCount - i - 1);
+                    books[booksCount - 1] = null;
+                    booksCount--;
+                    if (getBookLen(book) == shelfLen) {
+                        updateShelfLen();
+                    }
+                    break;
+                }
+            }
+        } catch (CanNotRemoveSuchBook ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -68,12 +72,14 @@ public class Bookshelf {
         booksCount = 0;
     }
 
+    public int getBookLen(Book book) {
+        return book.toString().length();
+    }
+
     private void updateShelfLen() {
         shelfLen = 0;
         for (Book book : getBooks()) {
-            if (book.toString().length() > shelfLen) {
-                shelfLen = book.toString().length();
-            }
+            shelfLen = Math.max(shelfLen, getBookLen(book));
         }
     }
 }

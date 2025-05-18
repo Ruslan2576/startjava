@@ -2,9 +2,7 @@ package com.startjava.graduation.bookshelf;
 
 import static com.startjava.graduation.bookshelf.Bookshelf.CAPACITY;
 
-import com.startjava.graduation.bookshelf.exception.CanNotRemoveSuchBook;
 import com.startjava.graduation.bookshelf.exception.InvalidInputException;
-import com.startjava.graduation.bookshelf.exception.NoSuchBookException;
 import java.time.Year;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -25,9 +23,6 @@ public class BookshelfTest {
                 action = makeChoice();
                 executeMenuItem(action);
                 showAllBooks();
-                waitEnter();
-            } catch (NoSuchBookException | CanNotRemoveSuchBook ex) {
-                System.out.println(ex.getMessage());
                 waitEnter();
             } catch (InputMismatchException ex) {
                 System.out.println(ex.getMessage());
@@ -70,7 +65,7 @@ public class BookshelfTest {
         do {
             try {
                 int id = scan.nextInt();
-                if (MenuItem.getPoint(id)) {
+                if (MenuItem.isValidId(id, createMenu())) {
                     return createMenu()[id - 1];
                 }
             } catch (InputMismatchException e) {
@@ -110,7 +105,7 @@ public class BookshelfTest {
                 year = Year.of(scan.nextInt());
                 scan.nextLine();
                 break;
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException ex) {
                 scan.nextLine();
             }
         }
@@ -123,15 +118,19 @@ public class BookshelfTest {
         Book book = bookshelf.find(title);
         if (book != null) {
             System.out.println("Книга, которую вы искали\n" + book);
+        } else {
+            System.out.println("В шкафу нет такой книги");
         }
     }
 
     private static void delete() {
         scan.nextLine();
         String title = inputBookTitle();
-        bookshelf.find(title);
-        bookshelf.remove(title);
-        System.out.println("Книга удалена.");
+        Book book = bookshelf.find(title);
+        bookshelf.remove(book);
+        if (book != null) {
+            System.out.println("Книга удалена.");
+        }
     }
 
     private static String inputBookTitle() {
@@ -152,7 +151,7 @@ public class BookshelfTest {
 
         int shelfLen = bookshelf.getShelfLen();
         for (Book book : books) {
-            System.out.println("|" + book + " ".repeat(shelfLen - book.toString().length()) + "|");
+            System.out.println("|" + book + " ".repeat(shelfLen - bookshelf.getBookLen(book)) + "|");
             System.out.println("|" + "-".repeat(shelfLen) + "|");
         }
     }

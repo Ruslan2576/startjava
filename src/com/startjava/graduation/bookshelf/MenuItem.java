@@ -19,8 +19,8 @@ public enum MenuItem {
         return label;
     }
 
-    public static boolean getPoint(int choice) {
-        if (choice > 0 && choice <= MenuItem.values().length) {
+    public static boolean isValidId(int choice, MenuItem[] menuItems) {
+        if (choice > 0 && choice <= menuItems.length) {
             return true;
         }
 
