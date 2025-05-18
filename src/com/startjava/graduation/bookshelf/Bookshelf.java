@@ -42,13 +42,14 @@ public class Bookshelf {
                 return books[i];
             }
         }
+        System.out.print("В шкафу нет такой книги");
         return null;
     }
 
     public void remove(Book book) {
         try {
             if (book == null) {
-                throw new CanNotRemoveSuchBook("Не могу удалить такую книгу, её нет в шкафу");
+                throw new CanNotRemoveSuchBook(" не могу её удалить");
             }
 
             for (int i = 0; i < booksCount; i++) {
@@ -63,7 +64,7 @@ public class Bookshelf {
                 }
             }
         } catch (CanNotRemoveSuchBook ex) {
-            System.out.println(ex.getMessage());
+            System.out.print(ex.getMessage());
         }
     }
 

@@ -121,8 +121,6 @@ public class BookshelfTest {
         Book book = bookshelf.find(title);
         if (book != null) {
             System.out.println("Книга, которую вы искали\n" + book);
-        } else {
-            System.out.println("В шкафу нет такой книги");
         }
     }
 
