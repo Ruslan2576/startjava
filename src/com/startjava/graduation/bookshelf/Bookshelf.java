@@ -55,8 +55,7 @@ public class Bookshelf {
             for (int i = 0; i < booksCount; i++) {
                 if (books[i].getTitle().equals(book.getTitle())) {
                     System.arraycopy(books, i + 1, books, i, booksCount - i - 1);
-                    books[booksCount - 1] = null;
-                    booksCount--;
+                    books[--booksCount] = null;
                     if (getBookLen(book) == shelfLen) {
                         updateShelfLen();
                     }
