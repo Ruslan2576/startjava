@@ -1,7 +1,6 @@
 
-
-create database robots;
 \c
+drop table if exists jaegers;
 create table jaegers (
 	id 				serial not null primary key,
 	model_name 		text not null,
@@ -14,5 +13,5 @@ create table jaegers (
 	kaiju_kill 		integer not null
 );
 
-\i C:/Java/StartJava/src/com/startjava/lesson_5/populate.sql
-\i C:/Java/StartJava/src/com/startjava/lesson_5/queries.sql
+\i populate.sql
+\i queries.sql
